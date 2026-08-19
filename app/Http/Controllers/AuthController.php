@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Requests\InscriptionRequest;
 use App\Requests\LoginRequest;
+use App\Requests\LogoutRequest;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,6 +39,16 @@ class AuthController extends Controller
         'user'    => $data['user'],
     ], 201);
 }
+
+  public function logout(Request $request)
+    {
+    $this->authService->logout($request->user());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Déconnexion réussie.'
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      */
