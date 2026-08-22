@@ -14,8 +14,8 @@ return new class extends Migration
     Schema::create('table_restos', function (Blueprint $table) {
         $table->id();
         $table->foreignId('etablissement_id')->constrained()->cascadeOnDelete();
-        $table->integer('numero'); // Numero dyal tabla (ex: Table 5)
-        $table->integer('capacite'); // Ch7al kthez mn wahed (ex: 4)
+        $table->integer('numero');
+        $table->integer('capacite'); 
         $table->timestamps();
     });
 }

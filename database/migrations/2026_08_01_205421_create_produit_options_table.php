@@ -14,8 +14,8 @@ public function up(): void
     Schema::create('produit_options', function (Blueprint $table) {
         $table->id();
         $table->foreignId('produit_id')->constrained()->cascadeOnDelete();
-        $table->string('nom_option'); // ex: Taille L, Sans Sucre, Sauce Algérienne
-        $table->decimal('prix_supplementaire', 8, 2)->default(0); // ex: +15 DH
+        $table->string('nom_option');
+        $table->decimal('prix_supplementaire', 8, 2)->default(0); 
         $table->timestamps();
     });
 }
