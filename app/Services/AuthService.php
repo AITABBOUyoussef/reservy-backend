@@ -40,27 +40,11 @@ class AuthService
         ];
 
 }
-    public function editProfil(array $data)
-    {
-          $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-            $token = $user->createToken('react-app-token')->plainTextToken;
-        return [
-            'user'  => $user,
-            'token' => $token,
-        ];
-    }
+ 
     public function logout(User $user)
     {
         $user->currentAccessToken()->delete();
 
     }
-      public function destroy(User $user)
-    {
-        $user->delete();
-
-    }
+ 
 }

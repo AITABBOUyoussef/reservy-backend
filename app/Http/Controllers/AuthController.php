@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Requests\InscriptionRequest;
 use App\Requests\LoginRequest;
-use App\Requests\LogoutRequest;
+
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -85,5 +85,5 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-   
+
 }
