@@ -21,12 +21,12 @@ class ProfilService
         $user->avatar = $fileName;
     }
           $user->fill([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'phone'    => $data['phone'],
+         'name'  => $data['name'] ?? $user->name,
+    'email' => $data['email'] ?? $user->email,
+    'phone' => $data['phone'] ?? $user->phone,
         ]);
 if (!empty($data['password'])) {
-        // N'vérifiw wach l'mot de passe l9dim mktoub w s7i7
+
         if (empty($data['old_password']) || !Hash::check($data['old_password'], $user->getOriginal('password'))) {
             throw ValidationException::withMessages([
                 'old_password' => ['Le mot de passe actuel est incorrect.'],

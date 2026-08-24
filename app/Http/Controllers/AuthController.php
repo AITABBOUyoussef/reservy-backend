@@ -49,15 +49,15 @@ class AuthController extends Controller
             'message' => 'Déconnexion réussie.'
         ], 200);
     }
-    public function destroy(Request $request)
-    {
-    $this->authService->destroy($request->user());
+    // public function destroy(Request $request)
+    // {
+    // $this->authService->destroy($request->user());
 
-        return response()->json([
-            'success' => true,
-            'message' => 'destroy réussie.'
-        ], 200);
-    }
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'destroy réussie.'
+    //     ], 200);
+    // }
     /**
      * Store a newly created resource in storage.
      */
