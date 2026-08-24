@@ -26,7 +26,9 @@ class ProfilController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EditProfilRequest $request): JsonResponse
-    {       $data = $this->profilService->editProfil($request->user(), $request->validated());
+    {
+    // dd($request->all());
+    $data = $this->profilService->editProfil($request->user(), $request->validated());
         return response()->json([
         'success' => true,
             'message' => 'Profil mis à jour avec succès.',

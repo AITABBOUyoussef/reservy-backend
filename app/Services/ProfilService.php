@@ -14,12 +14,17 @@ class ProfilService
      */
      public function editProfil(User $user, array $data)
     {
-        if (isset($data['avatar']) && $data['avatar'] instanceof UploadedFile) {
-        $avatar = $data['avatar'];
-        $fileName = time() . '.' . $avatar->extension();
-        $avatar->move(public_path('photos'), $fileName);
-        $user->avatar = $fileName;
-    }
+           if (isset($data['avatar'])) {
+    $avatar = $data['avatar'];
+    $fileName = time() . '.' . $avatar->extension();
+
+    // Nsauvegardew tswira f dossier public/photos
+    $avatar->move(public_path('photos'), $fileName);
+
+    // N'affectew smit tswira jdida l'user
+    $user->avatar = $fileName;
+}
+
           $user->fill([
          'name'  => $data['name'] ?? $user->name,
     'email' => $data['email'] ?? $user->email,

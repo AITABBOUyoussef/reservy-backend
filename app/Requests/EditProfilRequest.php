@@ -11,18 +11,25 @@ public function authorize(): bool
   return true;
 
 }
-public function rules():array
+public function rules(): array
 {
-return [
-        'name'=> ['required'],
-        'email'=>['required','email'],
-        'avatar' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-        'phone'=>['string','required'],
-        'old_password' => ['required','string'],
-        'password' => ['required', 'string', 'confirmed'],
-        'password_confirmation' => ['required','string'],
-        'logout_other_devices'=>['boolean'],
-];
+    return [
+        // Name w Email غالبا katsifthom mn l'frontend (wakha ikon fihom l'valeur l9dima), y3ni 'required' mzyana lihom.
+        'name'  => ['nullable', 'string'],
+        'email' => [ 'nullable','email'],
+
+        // Avatar w Phone msmou7 ykono khawyin
+        'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        'phone'  => ['nullable', 'string'],
+
+        // Passwords (facultatifs)
+        // 'required_with:password' = Ila 3mer password, darouri y3mer old_password
+        'old_password'          => ['nullable', 'required_with:password', 'string'],
+        'password'              => ['nullable', 'string', 'confirmed'],
+        'password_confirmation' => ['nullable', 'string'],
+
+        'logout_other_devices'  => ['nullable', 'boolean'],
+    ];
 }
 public function messages(): array
 {
@@ -46,6 +53,7 @@ public function messages(): array
         // Old Password
         'old_password.required' => 'Veuillez saisir votre ancien mot de passe.',
         'old_password.string'   => 'Le format de l\'ancien mot de passe n\'est pas valide.',
+        'old_password.required_with' => 'Vous devez saisir l\'ancien mot de passe pour le modifier.',
 
         // New Password
         'password.required' => 'Le nouveau mot de passe est obligatoire.',
