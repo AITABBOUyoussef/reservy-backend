@@ -1,24 +1,25 @@
 <?php
 
 namespace App\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class InscriptionRequest extends FormRequest
 {
-     public function authorize(): bool
-  {
-    return true;
-  }
-  public function rules(): array
-  {
-    return [
-        'name'=> ['required'],
-        'email'=>['required','email'],
-        'password' => ['required','string'],
-        'password_confirmation' => ['required','string'],
-    ];
-  }
- public function messages(): array
+    public function authorize(): bool
+    {
+        return true;
+    }
+    public function rules(): array
+    {
+        return [
+            'name'    => ['required', 'string', 'max:255'],
+            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users,email'], // <-- Hna fin zedna unique
+            'password'              => ['required', 'string', 'min:8', 'confirmed'], // <-- 'confirmed' kat-vérifier password_confirmation
+            'password_confirmation' => ['required', 'string'],
+        ];
+    }
+    public function messages(): array
     {
         return [
             'name.required'                  => 'Le nom complet est obligatoire.',

@@ -14,14 +14,16 @@ class ProfilService
      */
      public function editProfil(User $user, array $data)
     {
-           if (isset($data['avatar'])) {
+
+    if (isset($data['avatar'])) {
+  if ($user->avatar && file_exists(public_path('photos/' . $user->avatar))) {
+                unlink(public_path('photos/' . $user->avatar));
+            }
     $avatar = $data['avatar'];
     $fileName = time() . '.' . $avatar->extension();
 
-    // Nsauvegardew tswira f dossier public/photos
     $avatar->move(public_path('photos'), $fileName);
 
-    // N'affectew smit tswira jdida l'user
     $user->avatar = $fileName;
 }
 
