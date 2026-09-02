@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Requests\GoogleLoginRequest;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Hash;
 use App\Requests\InscriptionRequest;
@@ -92,43 +93,28 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function googleLogin(Request $request)
+    public function googleLogin(GoogleLoginRequest $request) : JsonResponse
     {
-        $request->validate([
-            'token' => 'required'
-        ]);
 
-        try {
-            // Socialite ghadi yched l'Token li siftat React w yt2ked mno m3a Google
-            $googleUser = Socialite::driver('google')->stateless()->userFromToken($request->token);
 
-            // N9elbo 3la l'user f la base de données b l'email
-            $user = User::where('email', $googleUser->getEmail())->first();
+try {
+        $data = $this->authService->googleLogin($request->validated());
 
-            if (!$user) {
-                // Ila makaynch, n-creyiw compte jdid
-                $user = User::create([
-                    'name' => $googleUser->getName(),
-                    'email' => $googleUser->getEmail(),
-                    'password' => Hash::make(uniqid()), // Mot de passe 3achwa2i 7it m-logi b Google
-                ]);
-            }
+        return response()->json([
+            'success' =>true,
+            'message' => $data['message'],
+            'token'   => $data['token'],
+            'user'    => $data['user'],
+        ], 200);
 
-            // N-creyiw Token d Sanctum dyalna
-            $token = $user->createToken('reservy_token')->plainTextToken;
+    } catch (\Exception $e) {
+          return response()->json([
+            'success' => false,
+            'message' => 'Erreur de connexion avec Google',
+            'error'   => $e->getMessage()
+        ], 400); 
+    }
 
-            return response()->json([
-                'message' => 'Connexion réussie avec Google',
-                'user' => $user,
-                'token' => $token
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Erreur de connexion avec Google',
-                'error' => $e->getMessage()
-            ], 401);
-        }
     }
     public function forgotPassword(Request $request)
     {

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Socialite;
 
 class AuthService
 {
@@ -26,6 +27,32 @@ class AuthService
         ];
     }
 
+        public function googleLogin(array $data): array
+    {
+
+             $googleUser = Socialite::driver('google')->stateless()->userFromToken($data['token']);
+
+            $user = User::where('email', $googleUser->getEmail())->first();
+
+            if (!$user) {
+                $user = User::create([
+                    'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
+                    'password' => Hash::make(uniqid()),
+                ]);
+            }
+
+             $token = $user->createToken('reservy_token')->plainTextToken;
+
+             return [
+            'message' => 'Connexion réussie avec Google',
+            'user'  => $user,
+            'token' => $token,
+        ];
+
+
+    }
+
     public function inscription(array $data)
 {
    $user = User::create([
@@ -40,11 +67,11 @@ class AuthService
         ];
 
 }
- 
+
     public function logout(User $user)
     {
         $user->currentAccessToken()->delete();
 
     }
- 
+
 }
