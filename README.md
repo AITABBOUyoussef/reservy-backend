@@ -1,59 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Reservy — Backend (API)
 
-## About Laravel
+**API REST pour la plateforme de réservation Reservy — Cafés & Restaurants**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Sanctum](https://img.shields.io/badge/Laravel_Sanctum-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Présentation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Reservy est une plateforme web centralisée de mise en relation entre clients finaux et gérants de cafés/restaurants. Ce dépôt contient l'**API REST** développée avec Laravel, qui gère l'authentification, les rôles, les établissements, les menus, les réservations, les pré-commandes et les avis clients.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Problématique
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Les clients ont du mal à trouver des places disponibles lors des heures de pointe (matchs, soirées, week-ends) et à gérer les temps d'attente sur place. Parallèlement, les gérants manquent d'outils numériques centralisés pour optimiser leurs réservations et leur visibilité en ligne.
 
-### Premium Partners
+## Objectifs
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Digitaliser le processus de réservation et de pré-commande pour les cafés et restaurants, en offrant une expérience fluide côté client et une gestion optimisée côté professionnels.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Fonctionnalités de l'API (par Epic)
 
-## Code of Conduct
+### Epic 1 — Authentification et sécurité
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Inscription et connexion via API (Laravel Breeze / Sanctum).
+* Gestion des rôles (SuperAdmin, Gérant, Client) via Spatie Permission / Laratrust.
+* Seeders pour les rôles par défaut.
+* Protection des routes API par middleware selon le rôle.
 
-## Security Vulnerabilities
+### Epic 2 — Gestion des établissements et menus (B2B)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* CRUD complet du profil d'un établissement (nom, adresse, photos, horaires).
+* CRUD des catégories et produits du menu, avec prix.
+* Relations Eloquent entre établissements, catégories et produits.
 
-## License
+### Epic 3 — Découverte, réservation et pré-commande (B2C)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Endpoint de recherche et filtrage des établissements (ville, nom).
+* Gestion des réservations (date, heure, nombre de personnes).
+* Gestion des pré-commandes liées à une réservation (`commande_items`).
+* Soumission de réservation en transaction base de données.
+* Changement de statut d'une réservation (En attente → Acceptée / Refusée / Terminée).
+
+### Epic 4 — Avis et administration globale
+
+* CRUD des avis clients (note en étoiles + commentaire).
+* Calcul de la moyenne des notes par établissement.
+* Validation des établissements par le Super Admin (`est_valide`).
+
+---
+
+## Stack technique
+
+<div align="center">
+
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Sanctum](https://img.shields.io/badge/Sanctum-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![Spatie](https://img.shields.io/badge/Spatie_Permission-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+
+</div>
+
+* **Framework :** Laravel (Architecture MVC, API REST)
+* **Base de données :** MySQL
+* **Authentification :** Laravel Breeze / Sanctum (tokens API)
+* **Gestion des rôles :** Spatie Permission (ou Laratrust)
+* **ORM :** Eloquent
+
+---
+
+## Modèle de données (principales entités)
+
+| Table | Rôle |
+|---|---|
+| `users` | Comptes utilisateurs (Admin, Gérant, Client) |
+| `etablissements` | Profils des cafés/restaurants |
+| `categories` | Catégories du menu d'un établissement |
+| `produits` | Plats/produits avec leurs prix |
+| `reservations` | Réservations des clients (date, heure, personnes, statut) |
+| `commande_items` | Produits pré-commandés liés à une réservation |
+| `reviews` | Avis et notes laissés par les clients |
+
+---
+
+## Installation en local
+
+### 1. Prérequis
+
+* PHP 8.2 ou supérieur
+* Composer
+* MySQL
+* Git
+
+### 2. Cloner le dépôt
+
+```bash
+git clone https://github.com/AITABBOUyoussef/reservy-backend.git
+cd reservy-backend
+```
+
+### 3. Installer les dépendances
+
+```bash
+composer install
+```
+
+### 4. Configurer l'environnement
+
+```bash
+cp .env.example .env
+```
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=reservy
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Générer la clé et migrer la base de données
+
+```bash
+php artisan key:generate
+php artisan migrate --seed
+```
+
+### 6. Lancer le serveur
+
+```bash
+php artisan serve
+```
+
+L'API sera accessible sur :
+
+```
+http://localhost:8000/api
+```
+
+---
+
+## Dépôts liés
+
+* [Reservy — Frontend (React)](https://github.com/VOTRE_NOM_UTILISATEUR/reservy-frontend)
+
+---
+
+## Auteur
+
+**Youssef Ait Abbou**
+Étudiant en Développement Web Full-Stack | École Numérique Ahmed El Hansali
