@@ -153,7 +153,7 @@ http://localhost:8000/api
 
 ## Dépôts liés
 
-* [Reservy — Frontend (React)](https://github.com/VOTRE_NOM_UTILISATEUR/reservy-frontend)
+* [Reservy — Frontend (React)](https://github.com/AITABBOUyoussef/reservy-frontend)
 
 ---
 
