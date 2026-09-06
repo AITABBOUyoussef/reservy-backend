@@ -13,17 +13,12 @@ public function authorize(): bool
 }
 public function rules(): array
 {
-    return [
-        // Name w Email غالبا katsifthom mn l'frontend (wakha ikon fihom l'valeur l9dima), y3ni 'required' mzyana lihom.
-        'name'  => ['nullable', 'string'],
+    return [  'name'  => ['nullable', 'string'],
         'email' => [ 'nullable','email'],
 
-        // Avatar w Phone msmou7 ykono khawyin
         'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         'phone'  => ['nullable', 'string'],
 
-        // Passwords (facultatifs)
-        // 'required_with:password' = Ila 3mer password, darouri y3mer old_password
         'old_password'          => ['nullable', 'required_with:password', 'string'],
         'password'              => ['nullable', 'string', 'confirmed'],
         'password_confirmation' => ['nullable', 'string'],

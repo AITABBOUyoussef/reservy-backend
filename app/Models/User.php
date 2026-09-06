@@ -16,20 +16,11 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory,HasApiTokens, Notifiable;
-protected $appends = ['avatar_url'];
 
-     protected function avatarUrl(): Attribute
-    {
+//     $user=User::find(1);
+//    $user->assingRole('admin');
 
-          return Attribute::make(
-            get: function () {
-                 return $this->avatar
-                    ? asset('public/photos/' . $this->avatar)
-                    : null;
-            }
-        );
 
-    }
     /**
      * The attributes that are mass assignable.
      *
