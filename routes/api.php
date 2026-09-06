@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ProfilController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,4 +15,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/editProfil', [ProfilController::class, 'store']);
     Route::post('/destroy', [ProfilController::class, 'destroy']);
+    Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 });
