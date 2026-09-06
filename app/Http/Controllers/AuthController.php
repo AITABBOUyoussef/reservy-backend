@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GoogleLoginRequest as RequestsGoogleLoginRequest;
 use App\Models\User;
+use App\Requests\ForgotPasswordRequest;
 use App\Requests\GoogleLoginRequest;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Hash;
 use App\Requests\InscriptionRequest;
 use App\Requests\LoginRequest;
-
+use App\Requests\ResetPasswordRequest;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -57,15 +59,7 @@ class AuthController extends Controller
             'message' => 'Déconnexion réussie.'
         ], 200);
     }
-    // public function destroy(Request $request)
-    // {
-    // $this->authService->destroy($request->user());
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'destroy réussie.'
-    //     ], 200);
-    // }
     /**
      * Store a newly created resource in storage.
      */
@@ -95,9 +89,6 @@ class AuthController extends Controller
      */
     public function googleLogin(GoogleLoginRequest $request) : JsonResponse
     {
-
-
-try {
         $data = $this->authService->googleLogin($request->validated());
 
         return response()->json([
@@ -107,88 +98,32 @@ try {
             'user'    => $data['user'],
         ], 200);
 
+    }
+    public function forgotPassword(ForgotPasswordRequest $request) : JsonResponse
+    {
+$data = $this->authService->forgotPassword($request->validated());
+
+        return response()->json([
+            'success'=>$data['success'],
+            'message' => $data['message'],
+        ], 200);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request) : JsonResponse
+    {
+   try {
+        $result = $this->authService->resetPassword($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => $result['message']
+        ], 200);
+
     } catch (\Exception $e) {
-          return response()->json([
+        return response()->json([
             'success' => false,
-            'message' => 'Erreur de connexion avec Google',
-            'error'   => $e->getMessage()
-        ], 400); 
+            'message' => $e->getMessage()
+        ], 400);
     }
-
-    }
-    public function forgotPassword(Request $request)
-    {
-        // 1. N-vérifiw wach l'email mktoub w wach kayn f la base de données
-        $request->validate([
-            'email' => 'required|email|exists:users,email'
-        ], [
-            'email.exists' => 'Aucun compte ne correspond à cette adresse e-mail.'
-        ]);
-
-        // 2. N-creyiw Token 3achwa2i
-        $token = Str::random(64);
-
-        // 3. N-sauvegardew l'Token f la base de données (Table 'password_reset_tokens')
-        DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $request->email],
-            ['token' => $token, 'created_at' => now()]
-        );
-
-        // 4. Nsawbo l'Lien li ghadi ysift l'user l'React (Port 5173 dyalek)
-        $resetLink = "http://localhost:5173/reset-password?token=" . $token . "&email=" . urlencode($request->email);
-
-        // 5. Nsifto l'email (HTML basique)
-        Mail::send([], [], function ($message) use ($request, $resetLink) {
-            $message->to($request->email)
-                    ->subject('Réinitialisation de votre mot de passe - Reservy')
-                    ->html('
-                        <h2>Bonjour,</h2>
-                        <p>Vous avez demandé à réinitialiser votre mot de passe.</p>
-                        <p>Cliquez sur le lien ci-dessous pour créer un nouveau mot de passe :</p>
-                        <a href="' . $resetLink . '" style="display:inline-block;padding:10px 20px;background-color:#b04121;color:white;text-decoration:none;border-radius:5px;">Changer mon mot de passe</a>
-                        <p>Si vous n\'avez pas fait cette demande, ignorez cet e-mail.</p>
-                    ');
-        });
-
-        return response()->json([
-            'message' => 'Le lien de réinitialisation a été envoyé à votre adresse e-mail.'
-        ], 200);
-    }
-
-    public function resetPassword(Request $request)
-    {
-        // 1. N-vérifiw les données li jaw mn React
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'token' => 'required',
-            'password' => 'required|min:8|confirmed', // "confirmed" kat-obliger ykoun m3aha "password_confirmation" f React
-        ], [
-            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
-            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.'
-        ]);
-
-        // 2. N9elbo 3la l'Token f la base de données
-        $resetRecord = DB::table('password_reset_tokens')
-            ->where('email', $request->email)
-            ->where('token', $request->token)
-            ->first();
-
-        if (!$resetRecord) {
-            return response()->json([
-                'message' => 'Le lien de réinitialisation est invalide ou a expiré.'
-            ], 400);
-        }
-
-        // 3. Nbeddlo l'mot de passe dyal l'User
-        $user = User::where('email', $request->email)->first();
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        // 4. Nms7o l'Token bach mayt3awdch ytkhdem mra khra
-        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-
-        return response()->json([
-            'message' => 'Votre mot de passe a été réinitialisé avec succès.'
-        ], 200);
     }
 }

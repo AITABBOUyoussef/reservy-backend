@@ -2,7 +2,9 @@
 
 namespace App\Requests;
 
-class GoogleLoginRequest extends
+use Illuminate\Foundation\Http\FormRequest;
+
+class GoogleLoginRequest extends FormRequest
 {
     /**
      * Create a new class instance.
