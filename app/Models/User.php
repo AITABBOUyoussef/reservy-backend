@@ -42,10 +42,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-        public function roles()
-    {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
+ 
 
     /**
      * Get the attributes that should be cast.

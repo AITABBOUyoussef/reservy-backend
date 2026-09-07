@@ -12,23 +12,15 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        app(PermissionRegistrar::class)->forgetCachedPermissions();
+        // 1. Khwi l-cache dyal Spatie
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $adminRole = Role::firstOrCreate([
-            'name' => 'admin',
-            'guard_name' => 'web',
-        ]);
+        // 2. Khelqe les 3 rôles
+        Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'gerant', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'client', 'guard_name' => 'web']);
 
-        Role::firstOrCreate([
-            'name' => 'gerant',
-            'guard_name' => 'web',
-        ]);
-
-        Role::firstOrCreate([
-            'name' => 'client',
-            'guard_name' => 'web',
-        ]);
-
+        // 3. Khelqe l-Admin
         $admin = User::firstOrCreate(
             ['email' => env('ADMIN_EMAIL', 'admin@reservy.test')],
             [
@@ -37,8 +29,7 @@ class RoleSeeder extends Seeder
             ]
         );
 
-        if (! $admin->hasRole($adminRole)) {
-            $admin->assignRole($adminRole);
-        }
+        // 4. Assigni rôle direct
+        $admin->syncRoles(['admin']);
     }
 }
