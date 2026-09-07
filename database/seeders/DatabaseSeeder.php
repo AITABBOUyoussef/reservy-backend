@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -13,13 +15,24 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
-        // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-    }
+
+
+public function run(): void
+{
+    $adminRole = Role::firstOrCreate([
+        'name' => 'admin',
+        'guard_name' => 'web',
+    ]);
+
+    $admin = User::firstOrCreate(
+        ['email' => 'admin@reservy.test'],
+        [
+            'name' => 'Reservy Admin',
+            'password' => Hash::make('ChangeMe123!'),
+        ]
+    );
+
+    $admin->assignRole($adminRole);
+}
 }
