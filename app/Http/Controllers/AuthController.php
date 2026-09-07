@@ -36,6 +36,7 @@ class AuthController extends Controller
             'message' => 'Connexion réussie.',
             'token'   => $data['token'],
             'user'    => $data['user'],
+            'role' =>$data['Role'],
         ], 200);
     }
   public function inscription(InscriptionRequest $request): JsonResponse
@@ -47,6 +48,8 @@ class AuthController extends Controller
         'message' => 'Inscription effectuée avec succès.',
         'token'   => $data['token'],
         'user'    => $data['user'],
+            'role' =>$data['Role'],
+
     ], 201);
 }
 
@@ -96,6 +99,8 @@ class AuthController extends Controller
             'message' => $data['message'],
             'token'   => $data['token'],
             'user'    => $data['user'],
+            'role' =>$data['Role'],
+
         ], 200);
 
     }

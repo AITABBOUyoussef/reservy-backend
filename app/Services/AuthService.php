@@ -27,6 +27,7 @@ class AuthService
         return [
             'user'  => $user,
             'token' => $token,
+            'Role'=>$user->getRoleNames()->first(),
         ];
     }
 
@@ -46,11 +47,14 @@ class AuthService
             }
 
              $token = $user->createToken('reservy_token')->plainTextToken;
+        $user->assignRole('client');
 
              return [
             'message' => 'Connexion réussie avec Google',
             'user'  => $user,
             'token' => $token,
+            'Role'=>$user->getRoleNames()->first(),
+
         ];
 
 
@@ -63,10 +67,14 @@ class AuthService
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $user->assignRole('client');
+
             $token = $user->createToken('react-app-token')->plainTextToken;
         return [
             'user'  => $user,
             'token' => $token,
+            'Role'=>$user->getRoleNames()->first(),
+
         ];
 
 }

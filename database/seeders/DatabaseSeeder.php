@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,19 +20,8 @@ class DatabaseSeeder extends Seeder
 
 public function run(): void
 {
-    $adminRole = Role::firstOrCreate([
-        'name' => 'admin',
-        'guard_name' => 'web',
+$this->call([
+        RoleSeeder::class,
     ]);
-
-    $admin = User::firstOrCreate(
-        ['email' => 'admin@reservy.test'],
-        [
-            'name' => 'Reservy Admin',
-            'password' => Hash::make('ChangeMe123!'),
-        ]
-    );
-
-    $admin->assignRole($adminRole);
 }
 }

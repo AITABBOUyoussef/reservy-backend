@@ -33,7 +33,7 @@ class RoleSeeder extends Seeder
             ['email' => env('ADMIN_EMAIL', 'admin@reservy.test')],
             [
                 'name' => 'Reservy Admin',
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'ChangeMe123!')),
+                'password' => Hash::make(env('ADMIN_PASSWORD', 'admin@reservy.test')),
             ]
         );
 
