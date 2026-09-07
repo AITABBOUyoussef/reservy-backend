@@ -15,11 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory,HasApiTokens, Notifiable;
-
-//     $user=User::find(1);
-//    $user->assingRole('admin');
-
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
