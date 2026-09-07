@@ -15,7 +15,7 @@ public function up(): void
         $table->id();
         $table->foreignId('etablissement_id')->constrained()->cascadeOnDelete();
         $table->string('nom_image');
-        $table->boolean('est_principale')->default(false); // Tsowira lli ghatban lweela f l'Profil
+        $table->boolean('est_principale')->default(false); 
         $table->timestamps();
     });
 }

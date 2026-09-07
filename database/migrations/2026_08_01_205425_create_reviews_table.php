@@ -15,7 +15,7 @@ public function up(): void
         $table->id();
         $table->foreignId('client_id')->constrained('users')->cascadeOnDelete();
         $table->foreignId('etablissement_id')->constrained()->cascadeOnDelete();
-        $table->integer('note'); // Rating mn 1 l 5 étoiles
+        $table->integer('note'); 
         $table->text('commentaire')->nullable();
         $table->timestamps();
     });

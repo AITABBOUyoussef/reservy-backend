@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('client_id')->constrained('users')->cascadeOnDelete();
         $table->foreignId('etablissement_id')->constrained()->cascadeOnDelete();
-        $table->foreignId('table_id')->nullable()->constrained('table_restos')->nullOnDelete(); // T9der tkon null f lwel 7ta y-assignerha l'gérant
+        $table->foreignId('table_id')->nullable()->constrained('table_restos')->nullOnDelete(); 
 
         $table->date('date_reservation');
         $table->time('heure_reservation');

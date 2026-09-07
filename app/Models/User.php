@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +26,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'phone',
+        'role_id',
+
     ];
 
     /**
@@ -35,6 +41,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+        public function roles()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 
     /**
      * Get the attributes that should be cast.

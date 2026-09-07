@@ -17,7 +17,7 @@ public function up(): void
         $table->foreignId('categorie_id')->constrained()->cascadeOnDelete();
         $table->string('nom');
         $table->text('description')->nullable();
-        $table->decimal('prix', 8, 2); // Prix b dirham (ex: 45.50)
+        $table->decimal('prix', 8, 2); 
         $table->timestamps();
     });
 }

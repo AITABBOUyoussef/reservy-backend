@@ -17,8 +17,8 @@ return new class extends Migration
         $table->foreignId('produit_id')->constrained()->cascadeOnDelete();
 
         $table->integer('quantite');
-        $table->decimal('prix_unitaire', 8, 2); // Kan-sauvegarderw l'prix hnaya bach ila tbeddel f l'menu, l'historique dyal l'client maydi3ch
-        $table->text('instructions_speciales')->nullable(); // Hnaya fin kiktb l'client "Bla besla 3afak"
+        $table->decimal('prix_unitaire', 8, 2);
+        $table->text('instructions_speciales')->nullable(); 
 
         $table->timestamps();
     });
