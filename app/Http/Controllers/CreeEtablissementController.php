@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests\AcceptEtablissementRequest;
 use App\Requests\CreeEtablissementRequest;
 use App\Services\CreeEtablissementService;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +25,14 @@ class CreeEtablissementController extends Controller
             'Etablissement_en_attente'    => $data['Etablissement_en_attente'],
         ], 200);
     }
-    
+    public function AcceptEtablissement(AcceptEtablissementRequest $request) : JsonResponse
+    {
+         $data = $this->etablissementService->AcceptEtablissement($request->validated());
+     return response()->json([
+            'message' => 'Accepte etablissement réussie.',
+            'etablissement'    => $data['etablissement'],
+        ], 200);
+    }
 
     /**
      * Store a newly created resource in storage.

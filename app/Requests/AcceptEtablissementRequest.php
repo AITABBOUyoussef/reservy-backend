@@ -14,10 +14,10 @@ class AcceptEtablissementRequest extends FormRequest
  public function rules(): array
 {
     return [
-        'roleUSer'   => ['required', 'string', 'exists:users,id'],
+
         'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
         'statut'     => ['required', 'string', 'max:255'],
-        // 'gerant_id' =>  ['required', 'integer', 'exists:users,id'],
+        'gerant_id' =>  ['required', 'integer', 'exists:users,id'],
     ];
 }
 

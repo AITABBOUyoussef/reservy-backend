@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Etablissement;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class CreeEtablissementService
@@ -34,13 +35,15 @@ public function EtablissementAttente(){
         ];
 }
 public function AcceptEtablissement(array $data){
-$etablissement = Etablissement::find($data['IdEtablissement']);
-        $etablissement->updated([
+$etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        $etablissement->update([
              'statut' => $data['statut'],
        ]);
+       $user=User::findOrFail($data['gerant_id']);
+       $user->removeRole('client');
+        $user->assignRole('gerant');
           return [
             'etablissement'  => $etablissement,
-
         ];
 
 }

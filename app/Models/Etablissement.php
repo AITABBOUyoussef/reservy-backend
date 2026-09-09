@@ -13,6 +13,6 @@ class Etablissement extends Model
         'adresse',
         'ville',
         'telephone',
-        'est_valide',
+        'statut',
     ];
 }
