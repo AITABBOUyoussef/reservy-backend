@@ -15,10 +15,16 @@ class CreeEtablissementController extends Controller
     public function __construct(protected CreeEtablissementService $etablissementService ) {}
 
 
-    public function index()
+    public function EtablissementAttente()
     {
-        //
+        $data = $this->etablissementService->EtablissementAttente();
+     return response()->json([
+
+            'message' => 'les etablissements en_attente.',
+            'Etablissement_en_attente'    => $data['Etablissement_en_attente'],
+        ], 200);
     }
+    
 
     /**
      * Store a newly created resource in storage.

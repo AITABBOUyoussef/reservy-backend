@@ -20,7 +20,7 @@ class CreeEtablissementRequest extends FormRequest
         'adresse'     => ['required', 'string', 'max:255'],
         'ville'       => ['required', 'string', 'max:100'],
         'telephone'   => ['required', 'string', 'max:20'],
-        'est_valide'  => ['sometimes', 'boolean'],
+       
     ];
 }
 
