@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Requests\AcceptEtablissementRequest;
 use App\Requests\CreeEtablissementRequest;
+use App\Requests\DestroyEtablissementRequests;
 use App\Requests\EditEtablissementRequests;
 use App\Services\CreeEtablissementService;
 use Illuminate\Http\JsonResponse;
@@ -75,8 +76,13 @@ $data = $this->etablissementService->CreeEtablissement($request->validated());
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+  public function destroy(DestroyEtablissementRequests $request)
     {
-        //
+    $this->etablissementService->destroy($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'destroy réussie.'
+        ], 200);
     }
 }

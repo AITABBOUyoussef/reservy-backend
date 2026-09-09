@@ -68,9 +68,13 @@ $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
         ];
 
 }
-    public function destroy(Etablissement $etablissement)
+    public function destroy(array $data)
     {
-        $etablissement->delete();
+        $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        if($etablissement->gerant_id===$data['gerant_id']){
+      $etablissement->delete();
+        }
+
 
     }
 
