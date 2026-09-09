@@ -22,10 +22,10 @@ class RoleSeeder extends Seeder
 
         // 3. Khelqe l-Admin
         $admin = User::firstOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@reservy.test')],
+            ['email' => env('ADMIN_EMAIL')],
             [
                 'name' => 'Reservy Admin',
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'admin@reservy.test')),
+                'password' => Hash::make(env('ADMIN_PASSWORD')),
             ]
         );
 
