@@ -17,5 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/destroy', [ProfilController::class, 'destroy']);
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
     Route::post('/AcceptEtablissement', [CreeEtablissementController::class, 'AcceptEtablissement']);
+    Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
 });

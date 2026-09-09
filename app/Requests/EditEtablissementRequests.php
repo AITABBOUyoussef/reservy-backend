@@ -4,16 +4,16 @@ namespace App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreeEtablissementRequest extends FormRequest
+class EditEtablissementRequests extends FormRequest
 {
-
-    public function authorize():bool
+public function authorize():bool
     {
     return true;
     }
  public function rules(): array
 {
     return [
+        'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
         'gerant_id'   => ['required', 'integer', 'exists:users,id'],
         'nom'         => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string'],
@@ -49,8 +49,6 @@ public function messages(): array
         'telephone.string'     => 'Le numéro de téléphone doit être valide.',
         'telephone.max'        => 'Le numéro de téléphone ne peut pas dépasser :max caractères.',
 
-
-        
     ];
 }
 }

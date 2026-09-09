@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Requests\AcceptEtablissementRequest;
 use App\Requests\CreeEtablissementRequest;
+use App\Requests\EditEtablissementRequests;
 use App\Services\CreeEtablissementService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -34,6 +35,13 @@ class CreeEtablissementController extends Controller
         ], 200);
     }
 
+    public function EditEtablissement(EditEtablissementRequests $request):JsonResponse{
+        $data=$this->etablissementService->EditEtablissement($request->validated());
+     return response()->json([
+            'message' => 'mise a jour etablissement réussie.',
+            'etablissement'    => $data['etablissement'],
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      */

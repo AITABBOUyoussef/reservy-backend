@@ -47,5 +47,31 @@ $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
         ];
 
 }
+     public function EditEtablissement(array $data)
+{
+$etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        if($etablissement->gerant_id===$data['gerant_id']){
+   $etablissement->update([
+
+            'nom'    => $data['nom'],
+            'description'    => $data['description'],
+            'adresse'    => $data['adresse'],
+            'ville'    => $data['ville'],
+            'telephone'    => $data['telephone'],
+
+
+        ]);
+        }
+         return [
+            'etablissement'  => $etablissement,
+
+        ];
+
+}
+    public function destroy(Etablissement $etablissement)
+    {
+        $etablissement->delete();
+
+    }
 
 }
