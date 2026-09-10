@@ -34,12 +34,21 @@ public function EtablissementAttente(){
             'Etablissement_en_attente'  => $Etablissement_en_attente,
         ];
 }
-public function getAllEtablissement(){
+public function getAllEtablissement(User $user){
 
-    $Etablissement = Etablissement::all();
+if($user->getRoleNames()->first()=="admin")
+   { $Etablissement = Etablissement::all();
      return [
             'Etablissement'  => $Etablissement,
-        ];
+        ];}
+}
+public function getEtablissement(){
+    $etablissements = DB::table('etablissements')
+    ->where('statut','acceptee')
+    ->get();
+    return [
+        'etablissements' =>$etablissements,
+    ];
 }
 public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);

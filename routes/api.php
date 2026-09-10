@@ -11,6 +11,8 @@ Route::post('/reset-password', [\App\Http\Controllers\AuthController::class, 're
 Route::post('/auth/google', [AuthController::class, 'googleLogin']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/Register', [AuthController::class, 'inscription']);
+    Route::get('/GetEtablissement', [CreeEtablissementController::class, 'getEtablissement']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/editProfil', [ProfilController::class, 'store']);

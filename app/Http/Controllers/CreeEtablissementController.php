@@ -27,13 +27,22 @@ class CreeEtablissementController extends Controller
             'Etablissement_en_attente'    => $data['Etablissement_en_attente'],
         ], 200);
     }
-       public function getAllEtablissement()
+       public function getAllEtablissement(Request $request)
     {
-        $data = $this->etablissementService->getAllEtablissement();
+        $data = $this->etablissementService->getAllEtablissement($request->user());
      return response()->json([
 
             'message' => 'les etablissements ',
             'Etablissement'    => $data['Etablissement'],
+        ], 200);
+    }
+        public function getEtablissement()
+    {
+        $data = $this->etablissementService->getEtablissement();
+     return response()->json([
+
+            'message' => 'les etablissements ',
+            'etablissements'    => $data['etablissements'],
         ], 200);
     }
     public function AcceptEtablissement(AcceptEtablissementRequest $request) : JsonResponse
