@@ -27,6 +27,15 @@ class CreeEtablissementController extends Controller
             'Etablissement_en_attente'    => $data['Etablissement_en_attente'],
         ], 200);
     }
+       public function getAllEtablissement()
+    {
+        $data = $this->etablissementService->getAllEtablissement();
+     return response()->json([
+
+            'message' => 'les etablissements ',
+            'Etablissement'    => $data['Etablissement'],
+        ], 200);
+    }
     public function AcceptEtablissement(AcceptEtablissementRequest $request) : JsonResponse
     {
          $data = $this->etablissementService->AcceptEtablissement($request->validated());

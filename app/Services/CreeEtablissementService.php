@@ -34,6 +34,13 @@ public function EtablissementAttente(){
             'Etablissement_en_attente'  => $Etablissement_en_attente,
         ];
 }
+public function getAllEtablissement(){
+
+    $Etablissement = Etablissement::all();
+     return [
+            'Etablissement'  => $Etablissement,
+        ];
+}
 public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
         $etablissement->update([
