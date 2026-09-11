@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Etablissement extends Model
 {
@@ -15,4 +16,16 @@ class Etablissement extends Model
         'telephone',
         'statut',
     ];
+
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(EtablissementImage::class);
+    }
+
+    
+    public function tables(): HasMany
+    {
+        return $this->hasMany(TableResto::class);
+    }
 }
