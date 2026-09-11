@@ -52,12 +52,15 @@ public function getEtablissement(){
 }
 public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
-        $etablissement->update([
+ $etablissement->update([
              'statut' => $data['statut'],
        ]);
+if($data['statut'] === 'acceptee'){
        $user=User::findOrFail($data['gerant_id']);
+      $role= $user->getRoleNames()->first();
+       if(!$role==='admin'){
        $user->removeRole('client');
-        $user->assignRole('gerant');
+        $user->assignRole('gerant');}}
           return [
             'etablissement'  => $etablissement,
         ];
