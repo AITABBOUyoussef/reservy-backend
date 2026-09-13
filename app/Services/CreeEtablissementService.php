@@ -43,8 +43,13 @@ if($user->getRoleNames()->first()=="admin")
         ];}
 }
 public function getEtablissement(){
+
     $etablissements = DB::table('etablissements')
-    ->where('statut','acceptee')
+    ->join('etablissement_images','etablissements.id','=',"etablissement_images.etablissement_id")
+    ->join('reviews','etablissements.id','=',"reviews.etablissement_id")
+    ->where([['etablissements.statut','acceptee'] , ['etablissement_images.est_principale' , 1]] )
+    ->select('etablissements.id' , 'etablissements.nom' , 'etablissements.description' ,'etablissements.ville' , 'etablissement_images.nom_image' , 'etablissement_images.est_principale', DB::raw('AVG(reviews.note) as note_moyenne'))
+    ->groupBy('etablissements.id' , 'etablissements.nom' , 'etablissements.description' ,'etablissements.ville' , 'etablissement_images.nom_image' , 'etablissement_images.est_principale')
     ->get();
     return [
         'etablissements' =>$etablissements,
