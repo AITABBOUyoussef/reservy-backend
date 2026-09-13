@@ -24,7 +24,7 @@ class ImageEtablissementService
             $image->nom_image = $fileName;
         }
 
-        $image->etablissement_id = $data['etablissement_id']; // Affecter l'ID, pas l'objet
+        $image->etablissement_id = $data['etablissement_id'];
         $image->est_principale = $data['est_principale'];
 
          $image->save();

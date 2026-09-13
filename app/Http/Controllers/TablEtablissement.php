@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests\TablEtablissementRequests;
+use App\Services\TablEtablissement as ServicesTablEtablissement;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TablEtablissement extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+     public function __construct(protected ServicesTablEtablissement $etablissemenTablService ) {}
+
+     public function AddTabl(TablEtablissementRequests $request) : JsonResponse
     {
-        //
+
+$data = $this->etablissemenTablService->AddTabl($request->validated());
+     return response()->json([
+        'success' => true,
+            'message' => 'Add Tabl de Etablissement réussie.',
+            'tabl'    => $data['tabl'],
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.

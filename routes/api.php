@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\TablEtablissement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/AcceptEtablissement', [CreeEtablissementController::class, 'AcceptEtablissement']);
     Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::post('/AddImage', [ImageEtablissement::class, 'store']);
+    Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
     Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
     Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
     Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
