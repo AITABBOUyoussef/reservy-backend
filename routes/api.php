@@ -16,17 +16,31 @@ Route::post('/Register', [AuthController::class, 'inscription']);
 Route::get('/GetEtablissement', [CreeEtablissementController::class, 'getEtablissement']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/editProfil', [ProfilController::class, 'store']);
-    Route::post('/destroy', [ProfilController::class, 'destroy']);
-    Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
+Route::middleware('role:admin')->group(function () {
+  Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
+    Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
+    Route::get('/AllEtablissement', [CreeEtablissementController::class, 'getAllEtablissement']);
     Route::post('/AcceptEtablissement', [CreeEtablissementController::class, 'AcceptEtablissement']);
+        Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
     Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::post('/AddImage', [ImageEtablissement::class, 'store']);
     Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
     Route::post('/DaleteTabl', [TablEtablissement::class, 'daleteTabl']);
     Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
-    Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
-    Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
-    Route::get('/AllEtablissement', [CreeEtablissementController::class, 'getAllEtablissement']);
+
+});
+Route::middleware('role:admin|gerant')->group(function () {
+    Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
+    Route::post('/AddImage', [ImageEtablissement::class, 'store']);
+    Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
+    Route::post('/DaleteTabl', [TablEtablissement::class, 'daleteTabl']);
+    Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
+});
+    Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/editProfil', [ProfilController::class, 'store']);
+    Route::post('/destroy', [ProfilController::class, 'destroy']);
+
+
 });

@@ -36,11 +36,11 @@ public function EtablissementAttente(){
 }
 public function getAllEtablissement(User $user){
 
-if($user->getRoleNames()->first()=="admin")
-   { $Etablissement = Etablissement::all();
+
+    $Etablissement = Etablissement::all();
      return [
             'Etablissement'  => $Etablissement,
-        ];}
+        ];
 }
 public function getEtablissement(){
 
