@@ -14,7 +14,7 @@ class CreeEtablissementRequest extends FormRequest
  public function rules(): array
 {
     return [
-        'gerant_id'   => ['required', 'integer', 'exists:users,id'],
+      
         'nom'         => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string'],
         'adresse'     => ['required', 'string', 'max:255'],
@@ -50,7 +50,7 @@ public function messages(): array
         'telephone.max'        => 'Le numéro de téléphone ne peut pas dépasser :max caractères.',
 
 
-        
+
     ];
 }
 }

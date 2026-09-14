@@ -66,12 +66,13 @@ class CreeEtablissementController extends Controller
      */
     public function store(CreeEtablissementRequest $request) : JsonResponse
     {
-
-$data = $this->etablissementService->CreeEtablissement($request->validated());
+        $data = $request->validated();
+         $data['gerant_id'] = $request->user()->id;
+    $result = $this->etablissementService->CreeEtablissement($data);
      return response()->json([
         'success' => true,
             'message' => 'Cree etablissement réussie.',
-            'etablissement'    => $data['etablissement'],
+            'etablissement'    => $result['etablissement'],
         ], 200);
     }
 
@@ -96,6 +97,7 @@ $data = $this->etablissementService->CreeEtablissement($request->validated());
      */
   public function destroy(DestroyEtablissementRequests $request)
     {
+
     $this->etablissementService->destroy($request->validated());
 
         return response()->json([
