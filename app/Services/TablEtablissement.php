@@ -26,4 +26,14 @@ class TablEtablissement
             'tabl' => $tabl,
         ];
     }
+
+
+    public function daleteTabl(array $data)
+    {
+     $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+     $tabl = TableResto::findOrFail($data['IdTabl']);
+        if($etablissement->gerant_id===$data['gerant_id']){
+      $tabl->delete();
+        }
+    }
 }

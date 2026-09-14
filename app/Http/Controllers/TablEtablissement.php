@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests\DeletTablEtablissementRequests;
 use App\Requests\TablEtablissementRequests;
 use App\Services\TablEtablissement as ServicesTablEtablissement;
 use Illuminate\Http\JsonResponse;
@@ -19,6 +20,14 @@ $data = $this->etablissemenTablService->AddTabl($request->validated());
         'success' => true,
             'message' => 'Add Tabl de Etablissement réussie.',
             'tabl'    => $data['tabl'],
+        ], 200);
+    }
+      public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
+    {
+      $this->etablissemenTablService->daleteTabl($request->validated());
+          return response()->json([
+            'success' => true,
+            'message' => 'Tabl Delete'
         ], 200);
     }
 
