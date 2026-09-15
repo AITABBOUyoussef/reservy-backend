@@ -14,7 +14,7 @@ class DestroyEtablissementRequests extends FormRequest
 {
 return [
   'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
-     'gerant_id'   => ['required', 'integer', 'exists:users,id'],
+
 ];
 }
 }

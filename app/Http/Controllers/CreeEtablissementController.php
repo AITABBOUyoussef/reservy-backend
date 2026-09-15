@@ -6,6 +6,7 @@ use App\Requests\AcceptEtablissementRequest;
 use App\Requests\CreeEtablissementRequest;
 use App\Requests\DestroyEtablissementRequests;
 use App\Requests\EditEtablissementRequests;
+use App\Requests\GarantEtablissementRequests;
 use App\Services\CreeEtablissementService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,6 +45,22 @@ class CreeEtablissementController extends Controller
             'message' => 'les etablissements ',
             'etablissements'    => $data['etablissements'],
         ], 200);
+    }
+    public function getEtablissementGarant(GarantEtablissementRequests $request)
+    {
+            $data = $request->validated();
+         $data['gerant_id'] = $request->user()->id;
+        $dataa =$this->etablissementService->getEtablissementGarant($data);
+        if(isset($dataa['etablissements'])){
+        return response()->json([
+
+            'message' => $dataa['msg'],
+            'etablissements'    => $dataa['etablissements'],
+        ], 200);}
+         return response()->json([
+
+            'message' => $dataa['msg'],
+        ], 403);
     }
       public function getEtablissementDet(Request $request) : JsonResponse
     {

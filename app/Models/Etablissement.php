@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Etablissement extends Model
@@ -22,13 +23,16 @@ class Etablissement extends Model
     {
         return $this->hasMany(EtablissementImage::class);
     }
-
+public function users(): BelongsTo
+{
+    return $this->belongsTo(User::class);
+}
 
     public function tables(): HasMany
     {
         return $this->hasMany(TableResto::class);
     }
-   
+
 public function produits(): HasMany
 {
     return $this->hasMany(Produit::class);

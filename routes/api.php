@@ -37,6 +37,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
     Route::post('/DaleteTabl', [TablEtablissement::class, 'daleteTabl']);
     Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
+    Route::post('/MonEtablissment', [CreeEtablissementController::class, 'getEtablissementGarant']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 

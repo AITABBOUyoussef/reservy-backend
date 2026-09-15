@@ -43,6 +43,29 @@ $Etablissement = Etablissement::with(['images' => function ($query) {
             'Etablissement'  => $Etablissement,
         ];
 }
+public function getEtablissementGarant(array $data){
+
+
+     $etablissement = Etablissement::with([
+            'images',
+            'tables',
+            'produits.categorie',
+            'produits.produitOptions',
+            'produits.produitImages',
+            'reviews.client:id,name',
+
+        ])
+        ->withAvg('reviews as note_moyenne', 'note')
+        ->findOrFail($data['etablissementId']);
+
+    if($data['gerant_id']===$etablissement->gerant_id || 1){
+        return [
+            'etablissements' => $etablissement,
+            'msg'=>'Welecom'
+        ];}
+        else
+             return['msg' =>'nta machi molah'];
+}
 public function getEtablissement(){
 
     $etablissements = DB::table('etablissements')
@@ -183,9 +206,9 @@ $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
     public function destroy(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
-        if($etablissement->gerant_id===$data['gerant_id']){
+
       $etablissement->delete();
-        }
+
 
 
     }
