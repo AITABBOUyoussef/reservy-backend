@@ -55,6 +55,92 @@ public function getEtablissement(){
         'etablissements' =>$etablissements,
     ];
 }
+public function getEtablissementDettt(array $data){
+$etablissementId = $data['etablissementId'];
+
+// $etablissements = DB::select("
+//     SELECT
+//         etablissements.gerant_id,
+//         etablissements.nom,
+//         etablissements.description,
+//         etablissements.adresse,
+//         etablissements.ville,
+//         etablissements.telephone,
+//         etablissement_images.nom_image,
+//         etablissement_images.est_principale,
+//         table_restos.numero,
+//         table_restos.capacite,
+//         AVG(reviews.note) AS note_moyenne,
+//         produits.nom AS produit_nom,
+//         produits.description AS produit_description,
+//         produits.prix,
+//         produit_options.nom_option,
+//         produit_options.prix_supplementaire,
+//         produit_images.nom_image AS produit_image,
+//         produit_images.est_principale AS produit_image_principale,
+//         categories.nom AS categorie_nom,
+//         reviews.commentaire,
+//         reviews.client_id,
+//         users.name
+//     FROM `etablissements`
+//     LEFT JOIN `etablissement_images` ON etablissements.id = etablissement_images.etablissement_id
+//     LEFT JOIN `table_restos` ON etablissements.id = table_restos.etablissement_id
+//     LEFT JOIN `reviews` ON etablissements.id = reviews.etablissement_id
+//     LEFT JOIN `produits` ON etablissements.id = produits.etablissement_id
+//     LEFT JOIN `categories` ON produits.categorie_id = categories.id
+//     LEFT JOIN `produit_options` ON produits.id = produit_options.produit_id
+//     LEFT JOIN `produit_images` ON produits.id = produit_images.produit_id
+//     LEFT JOIN `users` ON users.id = reviews.client_id
+//     WHERE etablissements.id = :etablissement_id
+//     GROUP BY
+//         etablissements.gerant_id,
+//         etablissements.nom,
+//         etablissements.description,
+//         etablissements.adresse,
+//         etablissements.ville,
+//         etablissements.telephone,
+//         etablissement_images.nom_image,
+//         etablissement_images.est_principale,
+//         table_restos.numero,
+//         table_restos.capacite,
+//         produits.nom,
+//         produits.description,
+//         produits.prix,
+//         produit_options.nom_option,
+//         produit_options.prix_supplementaire,
+//         produit_images.nom_image,
+//         produit_images.est_principale,
+//         categories.nom,
+//         reviews.commentaire,
+//         reviews.client_id,
+//         users.name
+// ", [
+//     'etablissement_id' => $etablissementId
+// ]);
+$etablissements = Etablissement::with(['images', 'tables', 'produits', 'reviews'])->find($etablissementId);
+    return [
+        'etablissements' =>$etablissements,
+    ];
+}
+public function getEtablissementDet(array $data)
+    {
+        $etablissement = Etablissement::with([
+            'images',
+            'tables',
+            'produits.categorie',
+            'produits.produitOptions',
+            'produits.produitImages',
+            'reviews.client:id,name'
+        ])
+        ->withAvg('reviews as note_moyenne', 'note')
+        ->findOrFail($data['etablissementId']);
+
+        return [
+            'etablissements' => $etablissement
+        ];
+    }
+
+
 public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
  $etablissement->update([
@@ -92,6 +178,7 @@ $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
         ];
 
 }
+
     public function destroy(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);

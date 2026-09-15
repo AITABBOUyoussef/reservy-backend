@@ -14,6 +14,8 @@ Route::post('/auth/google', [AuthController::class, 'googleLogin']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/Register', [AuthController::class, 'inscription']);
 Route::get('/GetEtablissement', [CreeEtablissementController::class, 'getEtablissement']);
+Route::post('/GetEtablissementDet', [CreeEtablissementController::class, 'getEtablissementDet']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('role:admin')->group(function () {

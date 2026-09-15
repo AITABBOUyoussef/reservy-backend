@@ -45,6 +45,19 @@ class CreeEtablissementController extends Controller
             'etablissements'    => $data['etablissements'],
         ], 200);
     }
+      public function getEtablissementDet(Request $request) : JsonResponse
+    {
+         $data = $request->validate([
+        'etablissementId' => 'required|integer|exists:etablissements,id',
+    ]);
+         $data['etablissementId'] = $request->etablissementId;
+        $result = $this->etablissementService->getEtablissementDet($data);
+     return response()->json([
+
+            'message' => 'les etablissements ',
+            'etablissements'    => $result['etablissements'],
+        ], 200);
+    }
     public function AcceptEtablissement(AcceptEtablissementRequest $request) : JsonResponse
     {
          $data = $this->etablissementService->AcceptEtablissement($request->validated());

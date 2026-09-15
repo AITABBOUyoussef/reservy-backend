@@ -41,8 +41,21 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+public function role(): BelongsTo
+{
+    return $this->belongsTo(Role::class);
+}
 
- 
+public function reviews(): HasMany
+{
+    return $this->hasMany(Review::class, 'client_id');
+}
+
+public function reservations(): HasMany
+{
+    return $this->hasMany(Reservation::class, 'client_id');
+}
+
 
     /**
      * Get the attributes that should be cast.

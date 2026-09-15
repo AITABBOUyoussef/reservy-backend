@@ -23,9 +23,19 @@ class Etablissement extends Model
         return $this->hasMany(EtablissementImage::class);
     }
 
-    
+
     public function tables(): HasMany
     {
         return $this->hasMany(TableResto::class);
     }
+   
+public function produits(): HasMany
+{
+    return $this->hasMany(Produit::class);
+}
+
+public function reviews(): HasMany
+{
+    return $this->hasMany(Review::class);
+}
 }
