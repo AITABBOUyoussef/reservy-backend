@@ -11,7 +11,7 @@ class CreeEtablissementService
      public function CreeEtablissement(array $data)
 {
    $etablissement = Etablissement::create([
-            'gerant_id'     => auth()->id,
+            'gerant_id'     => auth()->id(),
             'nom'    => $data['nom'],
             'description'    => $data['description'],
             'adresse'    => $data['adresse'],
