@@ -35,9 +35,10 @@ public function EtablissementAttente(){
         ];
 }
 public function getAllEtablissement(User $user){
+$Etablissement = Etablissement::with(['images' => function ($query) {
+    $query->where('est_principale', 1);
+}])->get();
 
-
-    $Etablissement = Etablissement::all();
      return [
             'Etablissement'  => $Etablissement,
         ];
