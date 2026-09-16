@@ -3,15 +3,21 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +28,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'phone',
+        'role_id',
+
     ];
 
     /**
@@ -33,6 +43,23 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+public function role(): BelongsTo
+{
+    return $this->belongsTo(Role::class);
+}
+ public function etablissments(){
+        return $this->hasMany(Etablissement::class);
+    }
+public function reviews(): HasMany
+{
+    return $this->hasMany(Review::class, 'client_id');
+}
+
+public function reservations(): HasMany
+{
+    return $this->hasMany(Reservation::class, 'client_id');
+}
+
 
     /**
      * Get the attributes that should be cast.

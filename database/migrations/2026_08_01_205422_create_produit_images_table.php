@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('produit_id')->constrained()->cascadeOnDelete();
         $table->string('nom_image');
-        $table->boolean('est_principale')->default(false); // Tsowira lli ghatban f l'Menu
+        $table->boolean('est_principale')->default(false); 
         $table->timestamps();
     });
 }
