@@ -26,16 +26,15 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/reservy-backend:latest
 
-    
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-
           curl https://cli-assets.heroku.com/install.sh | sh
 
+           heroku container:login
 
-          heroku container:login
+           heroku stack:set container -a reservy-backend-api
 
           heroku container:push web -a reservy-backend-api
 
