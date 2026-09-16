@@ -56,15 +56,14 @@ public function getEtablissementGarant(array $data){
 
         ])
         ->withAvg('reviews as note_moyenne', 'note')
-        ->findOrFail($data['etablissementId']);
+        ->where('gerant_id',$data['gerant_id'])
+        ->get();
 
-    if($data['gerant_id']===$etablissement->gerant_id || 1){
+
         return [
             'etablissements' => $etablissement,
             'msg'=>'Welecom'
-        ];}
-        else
-             return['msg' =>'nta machi molah'];
+        ];
 }
 public function getEtablissement(){
 

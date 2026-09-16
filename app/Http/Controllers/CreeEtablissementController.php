@@ -46,21 +46,17 @@ class CreeEtablissementController extends Controller
             'etablissements'    => $data['etablissements'],
         ], 200);
     }
-    public function getEtablissementGarant(GarantEtablissementRequests $request)
+    public function getEtablissementGarant(Request $request)
     {
-            $data = $request->validated();
+
          $data['gerant_id'] = $request->user()->id;
         $dataa =$this->etablissementService->getEtablissementGarant($data);
-        if(isset($dataa['etablissements'])){
+
         return response()->json([
 
             'message' => $dataa['msg'],
             'etablissements'    => $dataa['etablissements'],
-        ], 200);}
-         return response()->json([
-
-            'message' => $dataa['msg'],
-        ], 403);
+        ], 200);
     }
       public function getEtablissementDet(Request $request) : JsonResponse
     {
