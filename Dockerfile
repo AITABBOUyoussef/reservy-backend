@@ -1,8 +1,6 @@
 FROM php:8.3-apache
 
 RUN a2enmod rewrite
-RUN a2dismod mpm_event || true
-RUN a2enmod mpm_prefork
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -31,3 +29,5 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+RUN a2dismod mpm_event && a2enmod mpm_prefork
