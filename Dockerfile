@@ -30,4 +30,4 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+CMD a2dismod mpm_event >/dev/null 2>&1; a2enmod mpm_prefork >/dev/null 2>&1; exec apache2-foreground
