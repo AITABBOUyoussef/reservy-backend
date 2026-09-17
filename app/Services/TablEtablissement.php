@@ -9,31 +9,26 @@ class TablEtablissement
 {
      public function AddTabl(array $data)
     {
-       $etablissement = Etablissement::findOrFail($data['etablissement_id']);
+        $etablissement = Etablissement::findOrFail($data['etablissement_id']);
 
         $tabl = new TableResto();
-
-         if ($etablissement) {
-              $tabl->etablissement_id = $data['etablissement_id'];
-
-                $tabl->numero = $data['numero'];
-                $tabl->capacite = $data['capacite'];
-        }
-
- $tabl->save();
+        $tabl->etablissement_id = $data['etablissement_id'];
+        $tabl->numero = $data['numero'];
+        $tabl->capacite = $data['capacite'];
+        $tabl->save();
 
         return [
             'tabl' => $tabl,
         ];
     }
 
-
     public function daleteTabl(array $data)
     {
-     $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
-     $tabl = TableResto::findOrFail($data['IdTabl']);
-        if($etablissement->gerant_id===$data['gerant_id']){
-      $tabl->delete();
+        $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        $tabl = TableResto::findOrFail($data['IdTabl']);
+
+        if($etablissement->gerant_id === $data['gerant_id']){
+            $tabl->delete();
         }
     }
 }
