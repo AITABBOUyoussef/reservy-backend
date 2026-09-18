@@ -19,10 +19,10 @@ class RoleSeeder extends Seeder
         Role::firstOrCreate(['name' => 'client', 'guard_name' => 'web']);
 
         $admin = User::firstOrCreate(
-            ['email' => env('ADMIN_EMAIL')],
+            ['email' => 'reservy61@gmail.com'],
             [
                 'name' => 'Reservy Admin',
-                'password' => Hash::make(env('ADMIN_PASSWORD')),
+                'password' => Hash::make('reservy61@gmail.com'),
             ]
         );
 
