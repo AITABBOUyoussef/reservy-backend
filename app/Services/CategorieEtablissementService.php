@@ -19,6 +19,16 @@ class CategorieEtablissementService
             'categorie' => $categorie,
         ];
     }
+public function deleteCategorie(array $data){
+        $gerant_id=auth()->id();
 
-   
+        $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        $categorie = Categorie::findOrFail($data['IdCategorie']);
+
+        if($etablissement->gerant_id === $gerant_id){
+            $categorie->delete();
+        }
+
+}
+
 }

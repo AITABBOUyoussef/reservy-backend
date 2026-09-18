@@ -42,6 +42,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/EditImage', [ImageEtablissement::class, 'EditImage']);
     Route::get('/MonEtablissment', [CreeEtablissementController::class, 'getEtablissementGarant']);
     Route::post('/AddCategorie', [CategorieEtablissement::class, 'AddCategorie']);
+    Route::post('/DeletCategorie', [CategorieEtablissement::class, 'DeletCategorie']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 
