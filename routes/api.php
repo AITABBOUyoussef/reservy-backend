@@ -35,6 +35,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::post('/AddImage', [ImageEtablissement::class, 'store']);
     Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
+    Route::post('/EditTabl', [TablEtablissement::class, 'EditTabl']);
     Route::post('/DaleteTabl', [TablEtablissement::class, 'daleteTabl']);
     Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
     Route::post('/EditImage', [ImageEtablissement::class, 'EditImage']);
