@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('etablissement_id')->constrained()->cascadeOnDelete();
         $table->integer('numero');
-        $table->integer('capacite'); 
+        $table->integer('capacite');
         $table->timestamps();
     });
 }

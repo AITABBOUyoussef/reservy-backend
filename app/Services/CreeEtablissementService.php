@@ -46,18 +46,20 @@ $Etablissement = Etablissement::with(['images' => function ($query) {
 public function getEtablissementGarant(array $data){
 
 
-     $etablissement = Etablissement::with([
-            'images',
-            'tables',
-            'produits.categorie',
-            'produits.produitOptions',
-            'produits.produitImages',
-            'reviews.client:id,name',
+    $etablissement = Etablissement::with([
+        'images',
+        'tables',
+        'categories:id,etablissement_id,nom', 
+        'produits.categorie:id,nom',
+        'produits.produitOptions',
+        'produits.produitImages',
+        'reviews.client:id,name',
+    ])
+    ->withAvg('reviews as note_moyenne', 'note')
+    ->where('gerant_id', $data['gerant_id'])
+    ->get();
 
-        ])
-        ->withAvg('reviews as note_moyenne', 'note')
-        ->where('gerant_id',$data['gerant_id'])
-        ->get();
+
 
 
         return [

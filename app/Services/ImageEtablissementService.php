@@ -33,7 +33,28 @@ class ImageEtablissementService
             'image' => $image,
         ];
     }
+public function EditImage(array $data) {
+    $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
 
+    if ($etablissement->gerant_id != $data['gerant_id']) {
+        return response()->json(['message' => 'Non autorisé'], 403);
+    }
+
+    $image = EtablissementImage::findOrFail($data['IdImage']);
+
+     if ($image->etablissement_id != $etablissement->id) {
+        return response()->json(['message' => 'Cette image n\'appartient pas à cet établissement'], 403);
+    }
+
+    EtablissementImage::where('etablissement_id', $etablissement->id)
+                      ->update(['est_principale' => 0]);
+
+    $image->update([
+        'est_principale' => 1,
+    ]);
+
+  
+}
     public function daleteImage(array $data)
     {
      $etablissement = Etablissement::findOrFail($data['IdEtablissement']);

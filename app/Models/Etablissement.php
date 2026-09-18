@@ -37,6 +37,10 @@ public function produits(): HasMany
 {
     return $this->hasMany(Produit::class);
 }
+public function categories(): HasMany
+{
+    return $this->hasMany(Categorie::class);
+}
 
 public function reviews(): HasMany
 {
