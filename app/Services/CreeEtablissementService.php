@@ -49,6 +49,7 @@ public function getEtablissementGarant(array $data){
      $etablissement = Etablissement::with([
             'images',
             'tables',
+
             'produits.categorie',
             'produits.produitOptions',
             'produits.produitImages',
@@ -57,6 +58,7 @@ public function getEtablissementGarant(array $data){
         ])
         ->withAvg('reviews as note_moyenne', 'note')
         ->where('gerant_id',$data['gerant_id'])
+        ->with('categories')->where('id', $data['etablissement_id'])
         ->get();
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategorieEtablissement;
 use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
@@ -40,6 +41,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
     Route::post('/EditImage', [ImageEtablissement::class, 'EditImage']);
     Route::get('/MonEtablissment', [CreeEtablissementController::class, 'getEtablissementGarant']);
+    Route::post('/AddCategorie', [CategorieEtablissement::class, 'AddCategorie']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 
