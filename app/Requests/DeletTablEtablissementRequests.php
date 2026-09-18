@@ -15,7 +15,6 @@ class DeletTablEtablissementRequests extends FormRequest
 return [
   'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
   'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
-     'gerant_id'   => ['required', 'integer', 'exists:users,id'],
 ];
 }
 }

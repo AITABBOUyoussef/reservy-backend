@@ -45,10 +45,12 @@ class TablEtablissement
 
     public function daleteTabl(array $data)
     {
+        $gerant_id=auth()->id();
+
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
         $tabl = TableResto::findOrFail($data['IdTabl']);
 
-        if($etablissement->gerant_id === $data['gerant_id']){
+        if($etablissement->gerant_id === $gerant_id){
             $tabl->delete();
         }
     }
