@@ -42,6 +42,20 @@ class ProduitImageService
         $image->delete();
     }
 
+    public function setMainImage(array $data): void
+    {
+        $produit = Produit::with('etablissement')->findOrFail($data['IdProduit']);
+        $this->ensureOwner($produit);
+
+        $image = ProduitImage::whereKey($data['IdImage'])
+            ->where('produit_id', $produit->id)
+            ->firstOrFail();
+
+        ProduitImage::where('produit_id', $produit->id)
+            ->update(['est_principale' => false]);
+        $image->update(['est_principale' => true]);
+    }
+
     private function ensureOwner(Produit $produit): void
     {
         if (! $produit->etablissement || (int) $produit->etablissement->gerant_id !== (int) auth()->id()) {
