@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Requests\DeletProduitImageRequests;
+use App\Requests\EditProduitImageRequests;
 use App\Requests\ProduitImageRequests;
 use App\Services\ProduitImageService;
 use Illuminate\Http\JsonResponse;
@@ -29,6 +30,16 @@ class ProduitImageController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Image du produit supprimée avec succès.',
+        ]);
+    }
+
+    public function setMain(EditProduitImageRequests $request): JsonResponse
+    {
+        $this->produitImageService->setMainImage($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Image principale du produit mise à jour avec succès.',
         ]);
     }
 }

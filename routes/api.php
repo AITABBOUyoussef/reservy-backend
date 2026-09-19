@@ -51,6 +51,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/DeletProduit', [ProduitController::class, 'deleteProduit']);
     Route::post('/AddProduitImage', [ProduitImageController::class, 'store']);
     Route::post('/DeletProduitImage', [ProduitImageController::class, 'destroy']);
+    Route::post('/EditProduitImage', [ProduitImageController::class, 'setMain']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 
