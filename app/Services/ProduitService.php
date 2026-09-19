@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Etablissement;
 use App\Models\Produit;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ProduitService
 {
@@ -24,21 +25,23 @@ class ProduitService
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
         $gerantId = auth()->id();
 
-        if ($etablissement->gerant_id === $gerantId) {
-            $produit = new Produit;
-            $produit->etablissement_id = $data['etablissement_id'];
-            $produit->categorie_id = $data['categorie_id'];
-            $produit->nom = $data['nom'];
-            $produit->description = $data['description'] ?? null;
-            $produit->prix = $data['prix'];
-            $produit->save();
-
-            return [
-                'produit' => $produit->load(['categorie', 'produitOptions', 'produitImages']),
-            ];
+        if ($etablissement->gerant_id !== $gerantId) {
+            throw new AuthorizationException('Vous ne pouvez pas gérer cet établissement.');
         }
 
-        return [];
+        $this->ensureCategoryBelongsToEstablishment($data['categorie_id'], $etablissement->id);
+
+        $produit = Produit::create([
+            'etablissement_id' => $etablissement->id,
+            'categorie_id' => $data['categorie_id'],
+            'nom' => $data['nom'],
+            'description' => $data['description'] ?? null,
+            'prix' => $data['prix'],
+        ]);
+
+        return [
+            'produit' => $produit->load(['categorie', 'produitOptions', 'produitImages']),
+        ];
     }
 
     public function editProduit(array $data): array
@@ -47,21 +50,22 @@ class ProduitService
         $produit = Produit::findOrFail($data['IdProduit']);
         $gerantId = auth()->id();
 
-        if ($etablissement->gerant_id === $gerantId) {
-            $produit->update([
-                'etablissement_id' => $data['etablissement_id'],
-                'categorie_id' => $data['categorie_id'],
-                'nom' => $data['nom'],
-                'description' => $data['description'] ?? null,
-                'prix' => $data['prix'],
-            ]);
-
-            return [
-                'produit' => $produit->refresh()->load(['categorie', 'produitOptions', 'produitImages']),
-            ];
+        if ($etablissement->gerant_id !== $gerantId || $produit->etablissement_id !== $etablissement->id) {
+            throw new AuthorizationException('Vous ne pouvez pas modifier ce produit.');
         }
 
-        return [];
+        $this->ensureCategoryBelongsToEstablishment($data['categorie_id'], $etablissement->id);
+
+        $produit->update([
+            'categorie_id' => $data['categorie_id'],
+            'nom' => $data['nom'],
+            'description' => $data['description'] ?? null,
+            'prix' => $data['prix'],
+        ]);
+
+        return [
+            'produit' => $produit->refresh()->load(['categorie', 'produitOptions', 'produitImages']),
+        ];
     }
 
     public function deleteProduit(array $data): void
@@ -70,8 +74,22 @@ class ProduitService
         $produit = Produit::findOrFail($data['IdProduit']);
         $gerantId = auth()->id();
 
-        if ($etablissement->gerant_id === $gerantId) {
-            $produit->delete();
+        if ($etablissement->gerant_id !== $gerantId || $produit->etablissement_id !== $etablissement->id) {
+            throw new AuthorizationException('Vous ne pouvez pas supprimer ce produit.');
+        }
+
+        $produit->delete();
+    }
+
+    private function ensureCategoryBelongsToEstablishment(int $categoryId, int $etablissementId): void
+    {
+        $categoryBelongsToEstablishment = \App\Models\Categorie::query()
+            ->whereKey($categoryId)
+            ->where('etablissement_id', $etablissementId)
+            ->exists();
+
+        if (! $categoryBelongsToEstablishment) {
+            throw new AuthorizationException('Cette catégorie n’appartient pas à cet établissement.');
         }
     }
 }
