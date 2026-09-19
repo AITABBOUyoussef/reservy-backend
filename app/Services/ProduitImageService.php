@@ -10,7 +10,7 @@ class ProduitImageService
 {
     public function addImage(array $data): array
     {
-        $produit = Produit::with('etablissements')->findOrFail($data['produit_id']);
+        $produit = Produit::with('etablissement')->findOrFail($data['produit_id']);
         $this->ensureOwner($produit);
 
         $file = $data['nom_image'];
@@ -32,7 +32,7 @@ class ProduitImageService
 
     public function deleteImage(array $data): void
     {
-        $produit = Produit::with('etablissements')->findOrFail($data['IdProduit']);
+        $produit = Produit::with('etablissement')->findOrFail($data['IdProduit']);
         $this->ensureOwner($produit);
 
         $image = ProduitImage::whereKey($data['IdImage'])
@@ -44,7 +44,7 @@ class ProduitImageService
 
     private function ensureOwner(Produit $produit): void
     {
-        if (! $produit->etablissements || $produit->etablissements->gerant_id !== auth()->id()) {
+        if (! $produit->etablissement || (int) $produit->etablissement->gerant_id !== (int) auth()->id()) {
             throw new AuthorizationException('Vous ne pouvez pas gérer les images de ce produit.');
         }
     }
