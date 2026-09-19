@@ -49,7 +49,7 @@ public function getEtablissementGarant(array $data){
     $etablissement = Etablissement::with([
         'images',
         'tables',
-        'categories:id,etablissement_id,nom', 
+        'categories:id,etablissement_id,nom',
         'produits.categorie:id,nom',
         'produits.produitOptions',
         'produits.produitImages',
@@ -168,17 +168,21 @@ public function getEtablissementDet(array $data)
 
 public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+$IDAdmin = auth()->id();
+$admin=User::findOrFail($IDAdmin);
  $etablissement->update([
              'statut' => $data['statut'],
        ]);
 if($data['statut'] === 'acceptee'){
        $user=User::findOrFail($data['gerant_id']);
-      $role= $user->getRoleNames()->first();
-       if(!$role==='admin'){
+
+      $role= $admin->getRoleNames()->first();
+if($role==="admin"){
        $user->removeRole('client');
         $user->assignRole('gerant');}}
           return [
             'etablissement'  => $etablissement,
+            'user'=>$user,
         ];
 
 }

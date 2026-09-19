@@ -77,6 +77,7 @@ class CreeEtablissementController extends Controller
      return response()->json([
             'message' => 'Accepte etablissement réussie.',
             'etablissement'    => $data['etablissement'],
+            'user'    => $data['user'],
         ], 200);
     }
 
