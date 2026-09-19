@@ -5,6 +5,7 @@ use App\Http\Controllers\CategorieEtablissement;
 use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\TablEtablissement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,10 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::get('/MonEtablissment', [CreeEtablissementController::class, 'getEtablissementGarant']);
     Route::post('/AddCategorie', [CategorieEtablissement::class, 'AddCategorie']);
     Route::post('/DeletCategorie', [CategorieEtablissement::class, 'DeletCategorie']);
+    Route::get('/GetProduits/{etablissementId}', [ProduitController::class, 'index']);
+    Route::post('/AddProduit', [ProduitController::class, 'addProduit']);
+    Route::post('/EditProduit', [ProduitController::class, 'editProduit']);
+    Route::post('/DeletProduit', [ProduitController::class, 'deleteProduit']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
 
