@@ -17,15 +17,15 @@ class ProduitImageService
     {
         $produit = Produit::with('etablissement')->findOrFail($data['produit_id']);
 
-        // Verification d l-owner b if
-        if ($produit->etablissement && (int) $produit->etablissement->gerant_id === (int) auth()->id()) {
+
+        if ($produit->etablissement && $produit->etablissement->gerant_id ===  auth()->id()) {
 
             // Upload l Cloudinary
             $uploaded = $this->cloudinary()->uploadApi()->upload($data['nom_image']->getRealPath(), [
                 'folder' => 'reservy/produits',
             ]);
 
-            // Ila kant principale, rdd lokhrin 0
+            
             if (!empty($data['est_principale'])) {
                 ProduitImage::where('produit_id', $produit->id)->update(['est_principale' => false]);
             }
@@ -34,7 +34,7 @@ class ProduitImageService
                 'produit_id'     => $produit->id,
                 'nom_image'      => $uploaded['secure_url'],
                 'public_id'      => $uploaded['public_id'],
-                'est_principale' => (bool) ($data['est_principale'] ?? false),
+                'est_principale' =>  ($data['est_principale'] ?? false),
             ]);
 
             return ['image' => $image];
@@ -49,7 +49,7 @@ class ProduitImageService
         $image   = ProduitImage::whereKey($data['IdImage'])->where('produit_id', $produit->id)->first();
 
         // Verification d l-owner w l-image b if
-        if ($produit->etablissement && (int) $produit->etablissement->gerant_id === (int) auth()->id() && $image) {
+        if ($produit->etablissement &&  $produit->etablissement->gerant_id ===  auth()->id() && $image) {
 
             // Mse7 mn Cloudinary ila kayn public_id
             if (!empty($image->public_id)) {
@@ -70,7 +70,7 @@ class ProduitImageService
         $image   = ProduitImage::whereKey($data['IdImage'])->where('produit_id', $produit->id)->first();
 
         // Verification d l-owner w l-image b if
-        if ($produit->etablissement && (int) $produit->etablissement->gerant_id === (int) auth()->id() && $image) {
+        if ($produit->etablissement &&  $produit->etablissement->gerant_id === auth()->id() && $image) {
 
             ProduitImage::where('produit_id', $produit->id)->update(['est_principale' => false]);
             $image->update(['est_principale' => true]);
