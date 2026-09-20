@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Nette\Schema\ValidationException;
+use Cloudinary\Cloudinary;
+
 
 class ProfilService
 {
@@ -16,15 +18,13 @@ class ProfilService
     {
 
     if (isset($data['avatar'])) {
-  if ($user->avatar && file_exists(public_path('photos/' . $user->avatar))) {
-                unlink(public_path('photos/' . $user->avatar));
-            }
-    $avatar = $data['avatar'];
-    $fileName = time() . '.' . $avatar->extension();
 
-    $avatar->move(public_path('photos'), $fileName);
+    $uploaded= (new Cloudinary(env('CLOUDINARY_URL')))->uploadApi()->upload($data['avatar']->getRealPath(),[
+          'folder' => 'reservy/profil',
+    ]);
 
-    $user->avatar = $fileName;
+    $user->avatar = $uploaded['secure_url'];
+    $user->public_id = $uploaded['public_id'];
 }
 
           $user->fill([
