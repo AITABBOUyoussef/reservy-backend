@@ -13,8 +13,12 @@ class Produit extends Model
       'description',
       'prix'];
 
+     public function etablissement () {
+ return $this->belongsTo(Etablissement::class, 'etablissement_id');
+     }
+
      public function etablissements () {
- return $this->belongsTo(Etablissement::class);
+ return $this->etablissement();
      }
      public function categorie (){
         return $this->belongsTo(Categorie::class);

@@ -1,45 +1,71 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Etablissement;
 use App\Models\EtablissementImage;
-use Illuminate\Http\UploadedFile;
-use phpseclib4\Crypt\AES;
+use Cloudinary\Cloudinary;
 
 class ImageEtablissementService
 {
-    public function AddImage(array $data)
+    // Helper khfif bach yjib l-instance d Cloudinary direct mn .env
+    private function cloudinary()
     {
-       $etablissement = Etablissement::findOrFail($data['etablissement_id']);
-
-        $image = new EtablissementImage();
-
-         if ($etablissement) {
-
-            $file = $data['nom_image'];
-            $fileName = time() . '.' . $file->extension();
-
-            $file->move(public_path('photos'), $fileName);
-
-            $image->nom_image = $fileName;
-        }
-
-        $image->etablissement_id = $data['etablissement_id'];
-        $image->est_principale = $data['est_principale'];
-
-         $image->save();
-
-        return [
-            'image' => $image,
-        ];
+        return new Cloudinary(env('CLOUDINARY_URL'));
     }
 
-    public function daleteImage(array $data)
+    public function AddImage(array $data)
     {
-     $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
-     $image = EtablissementImage::findOrFail($data['IdImage']);
-        if($etablissement->gerant_id===$data['gerant_id']){
-      $image->delete();
+        $etablissement = Etablissement::findOrFail($data['etablissement_id']);
+
+        // Upload l Cloudinary
+        $uploaded = $this->cloudinary()->uploadApi()->upload($data['nom_image']->getRealPath(), [
+            'folder' => 'reservy/etablissements'
+        ]);
+
+        // Ila kant principale, rdd lokhrin 0
+        if (!empty($data['est_principale'])) {
+            EtablissementImage::where('etablissement_id', $etablissement->id)->update(['est_principale' => 0]);
         }
+
+        return EtablissementImage::create([
+            'nom_image'        => $uploaded['secure_url'],
+            'public_id'        => $uploaded['public_id'],
+            'etablissement_id' => $etablissement->id,
+            'est_principale'   => $data['est_principale'] ?? 0,
+        ]);
+    }
+
+    public function EditImage(array $data)
+    {
+        $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        $image = EtablissementImage::findOrFail($data['IdImage']);
+
+        if ($etablissement->gerant_id == $data['gerant_id'] && $image->etablissement_id == $etablissement->id) {
+            EtablissementImage::where('etablissement_id', $etablissement->id)->update(['est_principale' => 0]);
+            $image->update(['est_principale' => 1]);
+            return $image;
+        }
+
+        return false;
+    }
+
+    public function deleteImage(array $data)
+    {
+        $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+        $image = EtablissementImage::findOrFail($data['IdImage']);
+
+        if ($etablissement->gerant_id == $data['gerant_id'] && $image->etablissement_id == $etablissement->id) {
+            // Mse7 mn Cloudinary ila kayn public_id
+            if ($image->public_id) {
+                try {
+                    $this->cloudinary()->uploadApi()->destroy($image->public_id);
+                } catch (\Exception $e) {}
+            }
+
+            return $image->delete();
+        }
+
+        return false;
     }
 }

@@ -4,9 +4,9 @@ namespace App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeletTablEtablissementRequests extends FormRequest
+class DeletCategorieEtablissementRequests extends FormRequest
 {
-    public function authorize():bool
+       public function authorize():bool
     {
     return true;
     }
@@ -14,7 +14,7 @@ class DeletTablEtablissementRequests extends FormRequest
 {
 return [
   'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
-  'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
+  'IdCategorie'  => ['required', 'integer', 'exists:categories,id'],
 ];
 }
 }

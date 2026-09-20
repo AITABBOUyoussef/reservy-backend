@@ -54,10 +54,18 @@ $data = $this->etablissemenImagetService->AddImage($request->validated());
      */
     public function destroy(DeletImageEtablissementRequests $request): JsonResponse
     {
-      $this->etablissemenImagetService->daleteImage($request->validated());
+      $this->etablissemenImagetService->deleteImage($request->validated());
           return response()->json([
             'success' => true,
             'message' => 'Image Delete'
+        ], 200);
+    }
+       public function EditImage(DeletImageEtablissementRequests $request): JsonResponse
+    {
+      $this->etablissemenImagetService->EditImage($request->validated());
+          return response()->json([
+            'success' => true,
+            'message' => 'Image principale mise à jour avec succès'
         ], 200);
     }
 }
