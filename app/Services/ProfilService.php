@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException; // <-- L-import s7i7 dyal Laravel
+use Illuminate\Validation\ValidationException;
 use Cloudinary\Cloudinary;
 
 class ProfilService
@@ -15,31 +15,28 @@ class ProfilService
      */
     public function editProfil(User $user, array $data)
     {
+
         if (isset($data['avatar'])) {
 
             $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
-
-            if (!empty($user->public_id)) {
+      if (!empty($user->public_id)) {
                 $cloudinary->uploadApi()->destroy($user->public_id);
             }
 
-   $uploaded = $cloudinary->uploadApi()->upload($data['avatar']->getRealPath(), [
+            $uploaded = $cloudinary->uploadApi()->upload($data['avatar']->getRealPath(), [
                 'folder' => 'reservy/profil',
             ]);
-
 
             $user->avatar = $uploaded['secure_url'];
             $user->public_id = $uploaded['public_id'];
         }
 
-
-        $user->fill([
+          $user->fill([
             'name'  => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
             'phone' => $data['phone'] ?? $user->phone,
         ]);
 
-        // 3. GESTION  MOT DE PASSE
         if (!empty($data['password'])) {
             if (empty($data['old_password']) || !Hash::check($data['old_password'], $user->getOriginal('password'))) {
                 throw ValidationException::withMessages([
