@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests\ProduitOptionRequests;
+use App\Services\ProduitOptionService;
 use Illuminate\Http\Request;
 
 class ProduitOption extends Controller
@@ -9,17 +11,25 @@ class ProduitOption extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+      public function __construct(protected ProduitOptionService $optionService) {}
+
+    public function store(ProduitOptionRequests $request)
     {
-        //
+ $data = $this->optionService->store($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Option du produit ajoutée avec succès.',
+            'ProuitOption' => $data['option'],
+        ], 201);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function index(Request $request)
     {
-        //
+
     }
 
     /**

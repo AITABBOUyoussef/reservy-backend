@@ -7,6 +7,7 @@ use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\ProduitImageController;
+use App\Http\Controllers\ProduitOption;
 use App\Http\Controllers\TablEtablissement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/EditProduit', [ProduitController::class, 'editProduit']);
     Route::post('/DeletProduit', [ProduitController::class, 'deleteProduit']);
     Route::post('/AddProduitImage', [ProduitImageController::class, 'store']);
+    Route::post('/AddProduitOption', [ProduitOption::class, 'store']);
     Route::post('/DeletProduitImage', [ProduitImageController::class, 'destroy']);
     Route::post('/EditProduitImage', [ProduitImageController::class, 'setMain']);
 });
