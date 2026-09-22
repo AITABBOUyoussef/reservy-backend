@@ -20,12 +20,12 @@ class ProduitImageService
 
         if ($produit->etablissement && $produit->etablissement->gerant_id ===  auth()->id()) {
 
-            // Upload l Cloudinary
+          
             $uploaded = $this->cloudinary()->uploadApi()->upload($data['nom_image']->getRealPath(), [
                 'folder' => 'reservy/produits',
             ]);
 
-            
+
             if (!empty($data['est_principale'])) {
                 ProduitImage::where('produit_id', $produit->id)->update(['est_principale' => false]);
             }
