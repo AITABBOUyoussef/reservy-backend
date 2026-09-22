@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Requests\DeletOptionEtablissementRequests;
 use App\Requests\ProduitOptionRequests;
 use App\Services\ProduitOptionService;
 use Illuminate\Http\Request;
@@ -51,8 +52,12 @@ class ProduitOption extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DeletOptionEtablissementRequests $request)
     {
-        //
+        $this->optionService->destroy($request->validated());
+ return response()->json([
+            'success' => true,
+            'message' => 'Tabl Delete'
+        ], 200);
     }
 }

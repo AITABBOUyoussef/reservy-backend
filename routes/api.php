@@ -53,6 +53,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/AddProduitImage', [ProduitImageController::class, 'store']);
     Route::post('/AddProduitOption', [ProduitOption::class, 'store']);
     Route::post('/DeletProduitImage', [ProduitImageController::class, 'destroy']);
+    Route::post('/DeletProduitOption', [ProduitOption::class, 'destroy']);
     Route::post('/EditProduitImage', [ProduitImageController::class, 'setMain']);
 });
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
