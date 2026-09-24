@@ -71,7 +71,7 @@ public function getEtablissement(){
 
     $etablissements = DB::table('etablissements')
     ->join('etablissement_images','etablissements.id','=',"etablissement_images.etablissement_id")
-    ->leftJoin('reviews','etablissements.id','=',"reviews.etablissement_id") // <-- HNA TBDEL: leftJoin f blast join
+    ->leftJoin('reviews','etablissements.id','=',"reviews.etablissement_id")
     ->where([
         ['etablissements.statut','acceptee'],
         ['etablissement_images.est_principale' , 1]

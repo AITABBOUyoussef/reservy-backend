@@ -46,4 +46,9 @@ public function reviews(): HasMany
 {
     return $this->hasMany(Review::class);
 }
+
+public function reservations(): HasMany
+{
+    return $this->hasMany(Reservation::class);
+}
 }

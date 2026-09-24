@@ -93,6 +93,20 @@ Digitaliser le processus de réservation et de pré-commande pour les cafés et 
 
 ---
 
+## Réservations
+
+Les réservations sont disponibles pour les utilisateurs authentifiés via les endpoints REST suivants :
+
+| Méthode | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/reservations` | Lister les réservations accessibles à l'utilisateur |
+| `POST` | `/api/reservations` | Créer une réservation |
+| `GET` | `/api/reservations/{id}` | Consulter une réservation |
+| `PUT/PATCH` | `/api/reservations/{id}` | Modifier une réservation |
+| `DELETE` | `/api/reservations/{id}` | Supprimer une réservation |
+
+Les clients ne peuvent gérer que leurs propres réservations. Les gérants ne peuvent gérer que les réservations de leurs établissements, tandis que les administrateurs ont accès à toutes les réservations. La table sélectionnée doit appartenir à l'établissement, respecter sa capacité et ne pas être déjà réservée au même créneau.
+
 ## Installation en local
 
 ### 1. Prérequis

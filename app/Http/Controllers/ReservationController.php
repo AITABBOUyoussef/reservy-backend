@@ -2,47 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Requests\ReservationRequests;
+use App\Requests\UpdateReservationRequest;
+use App\Services\reservationService;
+use Illuminate\Http\JsonResponse;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected reservationService $reservationService) {}
+
+    public function index(): JsonResponse
     {
-        //
+        $data = $this->reservationService->getReservations();
+
+        return response()->json(['success' => true, 'reservations' => $data['reservations']]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(ReservationRequests $request): JsonResponse
     {
-        //
+        $data = $this->reservationService->createReservation($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Réservation créée avec succès.',
+            'reservation' => $data['reservation'],
+        ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(int $reservation): JsonResponse
     {
-        //
+        $data = $this->reservationService->getReservation($reservation);
+
+        return response()->json(['success' => true, 'reservation' => $data['reservation']]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateReservationRequest $request, int $reservation): JsonResponse
     {
-        //
+        $data = $this->reservationService->updateReservation($reservation, $request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Réservation modifiée avec succès.',
+            'reservation' => $data['reservation'],
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(int $reservation): JsonResponse
     {
-        //
+        $this->reservationService->deleteReservation($reservation);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Réservation supprimée avec succès.',
+        ]);
     }
 }

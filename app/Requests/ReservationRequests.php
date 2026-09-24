@@ -16,21 +16,15 @@ class ReservationRequests extends FormRequest
     {
         return [
             'etablissement_id' => ['required', 'integer', 'exists:etablissements,id'],
-
-            'client_id' => ['required', 'integer', 'exists:users,id'],
-
-            'table_id' => ['required', 'integer', 'exists:table_restos,id'],
+            'client_id' => ['sometimes', 'integer', 'exists:users,id'],
+            'table_id' => ['nullable', 'integer', 'exists:table_restos,id'],
 
             'date_reservation' => ['required', 'date', 'after_or_equal:today'],
-
             'heure_reservation' => ['required', 'date_format:H:i'],
-
-           'nombre_personnes' => ['required', 'integer', 'min:1'],
-
-            'montant_total' => ['required', 'numeric', 'min:0'],
-
-             'statut_paiement' => ['required', 'string', 'in:en_attente, paye_en_ligne,paye_sur_place'],
-            'statut' => ['required', 'string', 'in:en_attente, acceptee, refusee, terminee'],
+            'nombre_personnes' => ['required', 'integer', 'min:1'],
+            'montant_total' => ['sometimes', 'numeric', 'min:0'],
+            'statut_paiement' => ['sometimes', 'string', 'in:en_attente,paye_en_ligne,paye_sur_place'],
+            'statut' => ['sometimes', 'string', 'in:en_attente,acceptee,refusee,terminee'],
         ];
     }
 
