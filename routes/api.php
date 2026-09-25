@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieEtablissement;
+use App\Http\Controllers\CommandeItemController;
 use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
@@ -63,4 +64,5 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/editProfil', [ProfilController::class, 'store']);
     Route::post('/destroy', [ProfilController::class, 'destroy']);
     Route::apiResource('reservations', ReservationController::class);
+    Route::post('/commande-items', [CommandeItemController::class, 'store']);
 });

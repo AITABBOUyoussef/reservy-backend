@@ -80,7 +80,7 @@ class ReservationService
             'nombre_personnes' => $data['nombre_personnes'],
             'statut' => 'en_attente',
             'statut_paiement' => 'en_attente',
-            'montant_total' => $data['montant_total'],
+            'montant_total' => $data['montant_total'] ?? 0,
         ]);
 
         return [

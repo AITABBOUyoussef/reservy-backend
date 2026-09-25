@@ -266,7 +266,7 @@ Ne commitez jamais le fichier `.env` ni des clés privées.
 Toutes les routes sont préfixées par `/api`. Les routes protégées exigent :
 
 ```http
-Authorization: Bearer VALUE
+Authorization: Bearer ${ACCESS_TOKEN}
 Accept: application/json
 ```
 
@@ -300,6 +300,29 @@ Accept: application/json
 | `PUT/PATCH` | `/reservations/{id}` | Authentifié | Modifier une réservation |
 | `DELETE` | `/reservations/{id}` | Authentifié | Supprimer une réservation |
 
+### Commande
+
+Une commande est ajoutée séparément après la création de la réservation.
+La valeur de `reservation_id` est l'`id` retourné par `POST /reservations`.
+
+| Méthode | Endpoint | Accès | Description |
+|---|---|---|---|
+| `POST` | `/commande-items` | Authentifié | Ajouter un produit à une réservation |
+
+Envoyer `reservation_id` dans la requête `POST /commande-items` :
+
+```json
+{
+  "reservation_id": 12,
+  "produit_id": 4,
+  "quantite": 2,
+  "instructions_speciales": "Sans sucre"
+}
+```
+
+Le `prix_unitaire` est automatiquement copié depuis le produit, et le produit
+doit appartenir au même établissement que la réservation.
+
 ### Administration et gestion d'établissement
 
 | Rôle | Exemples d'opérations |
@@ -326,7 +349,7 @@ Le flux recommandé est :
 
 1. Appeler `/login` ou `/Register`.
 2. Récupérer le token retourné par l'API.
-3. Envoyer ce token dans l'en-tête `Authorization: Bearer VALUE`.
+3. Envoyer ce token dans l'en-t?te `Authorization: Bearer ${ACCESS_TOKEN}`.
 4. Respecter les permissions du rôle associé au compte.
 
 ## Tests et qualité
@@ -383,4 +406,3 @@ storage/                  # Logs et fichiers générés
 ## Licence
 
 Ce projet est distribué sous licence MIT.
-
