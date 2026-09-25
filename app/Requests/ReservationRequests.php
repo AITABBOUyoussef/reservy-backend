@@ -18,7 +18,6 @@ class ReservationRequests extends FormRequest
             'etablissement_id' => ['required', 'integer', 'exists:etablissements,id'],
             'client_id' => ['sometimes', 'integer', 'exists:users,id'],
             'table_id' => ['nullable', 'integer', 'exists:table_restos,id'],
-
             'date_reservation' => ['required', 'date', 'after_or_equal:today'],
             'heure_reservation' => ['required', 'date_format:H:i'],
             'nombre_personnes' => ['required', 'integer', 'min:1'],
