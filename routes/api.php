@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieEtablissement;
+use App\Http\Controllers\CommandeItemController;
 use App\Http\Controllers\CreeEtablissementController;
 use App\Http\Controllers\ImageEtablissement;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\ProduitImageController;
 use App\Http\Controllers\ProduitOption;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TablEtablissement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +63,7 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/editProfil', [ProfilController::class, 'store']);
     Route::post('/destroy', [ProfilController::class, 'destroy']);
-
-
+    Route::apiResource('reservations', ReservationController::class);
+    Route::post('/commande-items', [CommandeItemController::class, 'store']);
+    Route::get('/Mescommandes', [CommandeItemController::class, 'get']);
 });
