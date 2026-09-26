@@ -51,7 +51,6 @@ class ProduitImageService
         // Verification d l-owner w l-image b if
         if ($produit->etablissement &&  $produit->etablissement->gerant_id ===  auth()->id() && $image) {
 
-            // Mse7 mn Cloudinary ila kayn public_id
             if (!empty($image->public_id)) {
                 try {
                     $this->cloudinary()->uploadApi()->destroy($image->public_id);

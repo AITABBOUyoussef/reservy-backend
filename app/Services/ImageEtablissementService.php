@@ -8,7 +8,6 @@ use Cloudinary\Cloudinary;
 
 class ImageEtablissementService
 {
-    // Helper khfif bach yjib l-instance d Cloudinary direct mn .env
     private function cloudinary()
     {
         return new Cloudinary(env('CLOUDINARY_URL'));
@@ -56,7 +55,6 @@ class ImageEtablissementService
         $image = EtablissementImage::findOrFail($data['IdImage']);
 
         if ($etablissement->gerant_id == $data['gerant_id'] && $image->etablissement_id == $etablissement->id) {
-            // Mse7 mn Cloudinary ila kayn public_id
             if ($image->public_id) {
                 try {
                     $this->cloudinary()->uploadApi()->destroy($image->public_id);

@@ -24,4 +24,15 @@ class UpdateReservationRequest extends FormRequest
             'statut' => ['sometimes', 'string', 'in:en_attente,acceptee,refusee,terminee'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'etablissement_id.exists' => 'L’établissement sélectionné n’existe pas.',
+            'table_id.exists' => 'La table sélectionnée n’existe pas.',
+            'date_reservation.after_or_equal' => 'La date doit être aujourd’hui ou dans le futur.',
+            'heure_reservation.date_format' => 'L’heure doit être au format HH:MM.',
+            'nombre_personnes.min' => 'La réservation doit être pour au moins une personne.',
+        ];
+    }
 }

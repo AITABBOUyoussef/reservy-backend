@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Etablissement;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 
 class CreeEtablissementService
@@ -68,32 +69,11 @@ public function getEtablissementGarant(array $data){
         ];
 }
 public function getEtablissement(){
-
-    $etablissements = DB::table('etablissements')
-    ->join('etablissement_images','etablissements.id','=',"etablissement_images.etablissement_id")
-    ->leftJoin('reviews','etablissements.id','=',"reviews.etablissement_id")
-    ->where([
-        ['etablissements.statut','acceptee'],
-        ['etablissement_images.est_principale' , 1]
-    ])
-    ->select(
-        'etablissements.id',
-        'etablissements.nom',
-        'etablissements.description',
-        'etablissements.ville',
-        'etablissement_images.nom_image',
-        'etablissement_images.est_principale',
-        DB::raw('AVG(reviews.note) as note_moyenne')
-    )
-    ->groupBy(
-        'etablissements.id',
-        'etablissements.nom',
-        'etablissements.description',
-        'etablissements.ville',
-        'etablissement_images.nom_image',
-        'etablissement_images.est_principale'
-    )
-    ->get();
+    $etablissements = Etablissement::with('images')
+        ->withAvg('reviews as note_moyenne', 'note')
+        ->whereHas('produits')
+        ->where('statut', 'acceptee')
+        ->get();
 
     return [
         'etablissements' => $etablissements,
@@ -189,12 +169,11 @@ public function AcceptEtablissement(array $data){
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
 $IDAdmin = auth()->id();
 $admin=User::findOrFail($IDAdmin);
+$user = User::findOrFail($data['gerant_id']);
  $etablissement->update([
              'statut' => $data['statut'],
        ]);
 if($data['statut'] === 'acceptee'){
-       $user=User::findOrFail($data['gerant_id']);
-
       $role= $admin->getRoleNames()->first();
 if($role==="admin"){
        $user->removeRole('client');
@@ -208,7 +187,16 @@ if($role==="admin"){
      public function EditEtablissement(array $data)
 {
 $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
-        if($etablissement->gerant_id===$data['gerant_id']){
+             $user = auth()->user();
+             $estProprietaire = $etablissement->gerant_id === $user->id;
+
+             if (! $user->hasRole('admin') && ! $estProprietaire) {
+                 throw new AuthorizationException(
+                     'Vous ne pouvez pas modifier cet établissement.'
+                 );
+             }
+
+             if ($user->hasRole('admin') || $estProprietaire) {
    $etablissement->update([
 
             'nom'    => $data['nom'],
@@ -230,9 +218,15 @@ $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
     public function destroy(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
+            $user = auth()->user();
 
-      $etablissement->delete();
+            if (! $user->hasRole('admin') && $etablissement->gerant_id !== $user->id) {
+                throw new AuthorizationException(
+                    'Vous ne pouvez pas supprimer cet établissement.'
+                );
+            }
 
+            $etablissement->delete();
 
 
     }

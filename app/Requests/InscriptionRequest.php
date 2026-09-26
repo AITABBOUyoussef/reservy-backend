@@ -14,8 +14,8 @@ class InscriptionRequest extends FormRequest
     {
         return [
             'name'    => ['required', 'string', 'max:255'],
-            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users,email'], // <-- Hna fin zedna unique
-            'password'              => ['required', 'string', 'min:8', 'confirmed'], // <-- 'confirmed' kat-vérifier password_confirmation
+            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password'              => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string'],
         ];
     }

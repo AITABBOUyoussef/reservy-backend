@@ -47,7 +47,9 @@ class AuthService
             }
 
              $token = $user->createToken('reservy_token')->plainTextToken;
-        $user->assignRole('client');
+        if ($user->getRoleNames()->isEmpty()) {
+            $user->assignRole('client');
+        }
 
              return [
             'message' => 'Connexion réussie avec Google',
@@ -85,7 +87,7 @@ public function forgotPassword(array $data) : array
             ['email' => $data['email']],
             ['token' => $token, 'created_at' => now()]
         );
-        $resetLink = "http://localhost:5173". "/reset-password?token=" . $token . "&email=" . urlencode($data['email']);
+        $resetLink = env('FRONTEND_URL'). "/reset-password?token=" . $token . "&email=" . urlencode($data['email']);
   Mail::send([],[],function ($message) use ($data,$resetLink){
       $message->to($data['email'])
                     ->subject('Réinitialisation de votre mot de passe - Reservy')
