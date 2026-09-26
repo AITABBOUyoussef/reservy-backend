@@ -24,20 +24,14 @@ Route::post('/GetEtablissementDet', [CreeEtablissementController::class, 'getEta
 
 
 Route::middleware('auth:sanctum')->group(function () {
-Route::middleware('role:admin')->group(function () {
-  Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
+    Route::middleware('role:admin')->group(function () {
+    Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
     Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
     Route::get('/AllEtablissement', [CreeEtablissementController::class, 'getAllEtablissement']);
     Route::post('/AcceptEtablissement', [CreeEtablissementController::class, 'AcceptEtablissement']);
-        Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
-    Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
-    Route::post('/AddImage', [ImageEtablissement::class, 'store']);
-    Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
-    Route::post('/DaleteTabl', [TablEtablissement::class, 'daleteTabl']);
-    Route::post('/DaleteImage', [ImageEtablissement::class, 'destroy']);
+    });
 
-});
-Route::middleware('role:admin|gerant')->group(function () {
+    Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::post('/AddImage', [ImageEtablissement::class, 'store']);
     Route::post('/AddTabl', [TablEtablissement::class, 'AddTabl']);
@@ -57,8 +51,11 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/DeletProduitImage', [ProduitImageController::class, 'destroy']);
     Route::post('/DeletProduitOption', [ProduitOption::class, 'destroy']);
     Route::post('/EditProduitImage', [ProduitImageController::class, 'setMain']);
-});
+    });
+
+    Route::middleware('role:client|admin|gerant')->group(function () {
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
+    });
 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/editProfil', [ProfilController::class, 'store']);

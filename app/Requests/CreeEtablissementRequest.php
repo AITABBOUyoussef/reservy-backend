@@ -27,10 +27,6 @@ class CreeEtablissementRequest extends FormRequest
 public function messages(): array
 {
     return [
-        'gerant_id.required'   => 'L\'identifiant du gérant est obligatoire.',
-        'gerant_id.integer'    => 'L\'identifiant du gérant doit être un entier.',
-        'gerant_id.exists'     => 'Le gérant sélectionné n\'existe pas.',
-
         'nom.required'         => 'Le nom est obligatoire.',
         'nom.string'           => 'Le nom doit être une chaîne de caractères.',
         'nom.max'              => 'Le nom ne peut pas dépasser :max caractères.',

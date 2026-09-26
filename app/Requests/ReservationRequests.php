@@ -30,8 +30,16 @@ class ReservationRequests extends FormRequest
     public function messages(): array
     {
         return [
+            'etablissement_id.required' => 'L’établissement est obligatoire.',
+            'etablissement_id.exists' => 'L’établissement sélectionné n’existe pas.',
+            'table_id.integer' => 'La table doit être valide.',
             'date_reservation.after_or_equal' => 'La date de réservation doit être aujourd\'hui ou dans le futur.',
+            'date_reservation.required' => 'La date de réservation est obligatoire.',
+            'heure_reservation.required' => 'L’heure de réservation est obligatoire.',
+            'heure_reservation.date_format' => 'L’heure doit être au format HH:MM.',
             'nombre_personnes.min' => 'La réservation doit être pour au moins une personne.',
+            'nombre_personnes.required' => 'Le nombre de personnes est obligatoire.',
+            'nombre_personnes.integer' => 'Le nombre de personnes doit être un entier.',
             'table_id.exists' => 'La table sélectionnée n\'existe pas.',
         ];
     }

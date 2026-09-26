@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class CategorieEtablissement extends Controller
 {
-    // Injection dyal Service
     public function __construct(protected CategorieEtablissementService $categorieService) {}
 
     public function AddCategorie(CategorieEtablissementRequests $request): JsonResponse

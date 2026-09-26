@@ -23,8 +23,10 @@ class ResetPasswordRequest extends FormRequest
         return [
             'email.required'                 => 'L\'adresse e-mail est obligatoire.',
             'email.email'                    => 'Veuillez saisir une adresse e-mail valide.',
+            'email.exists'                   => 'Aucun compte ne correspond à cette adresse e-mail.',
             'email.unique'                   => 'Cette adresse e-mail est déjà associée à un compte.',
 
+            'token.required'                 => 'Le lien de réinitialisation est invalide.',
             'password.required'              => 'Le mot de passe est obligatoire.',
             'password.min'                   => 'Le mot de passe doit contenir au moins 8 caractères.',
             'password.confirmed'             => 'La confirmation du mot de passe ne correspond pas.',

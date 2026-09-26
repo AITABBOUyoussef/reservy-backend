@@ -35,7 +35,6 @@ class CommandeItemService
 
         $produit = Produit::findOrFail($data['produit_id']);
 
-        // Ila kayna réservation, produit khaso ykoun mn nefs établissement.
         if ($reservation
             && (int) $produit->etablissement_id !== (int) $reservation->etablissement_id) {
             throw ValidationException::withMessages([
@@ -75,9 +74,9 @@ $id = auth()->id();
         'commande_items.quantite',
         'commande_items.prix_unitaire as prix_total',
         'commande_items.instructions_speciales',
-        'commande_items.created_at' // Tss7i7: zedna dyal commande_items machi produits
+        'commande_items.created_at'
         )
-        ->orderByDesc('commande_items.created_at') // 1. T-triyi les articles mn jdad l9dam f DB
+        ->orderByDesc('commande_items.created_at') 
         ->get();
     $groupedCommandes = $CommandItems->groupBy(function ($item){
         if ($item->reservation_id) {

@@ -34,10 +34,9 @@ class TablEtablissementRequests extends FormRequest
     public function messages(): array
     {
         return [
-           'numero.unique' => 'Had ra9m dyal la table deja kayn f had l\'établissement.',
-
-           'numero.required' => 'Ra9m dyal la table darori.',
-            'capacite.required' => 'Capacité dyal la table daroriya.',
+           'numero.unique' => 'Ce numéro de table existe déjà dans cet établissement.',
+           'numero.required' => 'Le numéro de table est obligatoire.',
+            'capacite.required' => 'La capacité de la table est obligatoire.',
         ];
     }
 }
