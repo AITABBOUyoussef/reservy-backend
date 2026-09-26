@@ -46,7 +46,7 @@ class CommandeItemService
             'reservation_id' => $reservation?->id,
             'produit_id' => $produit->id,
             'quantite' => $data['quantite'],
-            'prix_unitaire' => $produit->prix,
+            'prix_unitaire' => ($produit->prix)*($data['quantite']),
             'instructions_speciales' => $data['instructions_speciales'] ?? null,
         ])->load('produit');
     }
