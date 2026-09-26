@@ -22,4 +22,11 @@ class CommandeItemController extends Controller
             'commande_item' => $commandeItem,
         ], 201);
     }
+    public function get()
+    {
+      $data =  $this->commandeItemService->getCommande();
+              return response()->json([
+            'MesCommande'    => $data['commande_items'],
+        ], 200);
+    }
 }

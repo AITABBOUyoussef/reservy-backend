@@ -6,6 +6,7 @@ use App\Models\CommandeItem;
 use App\Models\Produit;
 use App\Models\Reservation;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class CommandeItemService
@@ -50,4 +51,29 @@ class CommandeItemService
             'instructions_speciales' => $data['instructions_speciales'] ?? null,
         ])->load('produit');
     }
+    public function getCommande(){
+$id = auth()->id();
+ $Command = DB::table('commande_items')
+    ->join('produits','commande_items.produit_id','=',"produits.id")
+    ->leftJoin('reservations','commande_items.reservation_id','=',"reservations.id")
+    ->where([
+        ['commande_items.client_id',$id]
+
+    ])
+    ->select(
+        'commande_items.id',
+        'produits.nom',
+        'reservations.table_id',
+        'reservations.nombre_personnes',
+        'commande_items.quantite',
+        'commande_items.prix_unitaire',
+        'commande_items.instructions_speciales'
+    )
+
+    ->get();
+     return [
+        'commande_items' => $Command,
+    ];
+    }
+
 }

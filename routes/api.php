@@ -65,4 +65,5 @@ Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/destroy', [ProfilController::class, 'destroy']);
     Route::apiResource('reservations', ReservationController::class);
     Route::post('/commande-items', [CommandeItemController::class, 'store']);
+    Route::get('/Mescommandes', [CommandeItemController::class, 'get']);
 });
