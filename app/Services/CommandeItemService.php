@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\CommandeItem;
 use App\Models\Produit;
 use App\Models\Reservation;
+use Firebase\JWT\Key;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -53,26 +54,47 @@ class CommandeItemService
     }
     public function getCommande(){
 $id = auth()->id();
- $Command = DB::table('commande_items')
+ $CommandItems = DB::table('commande_items')
     ->join('produits','commande_items.produit_id','=',"produits.id")
     ->leftJoin('reservations','commande_items.reservation_id','=',"reservations.id")
     ->where([
         ['commande_items.client_id',$id]
-
     ])
     ->select(
-        'commande_items.id',
+        'commande_items.id as id_ligne',
+        'commande_items.reservation_id',
         'produits.nom',
         'reservations.table_id',
         'reservations.nombre_personnes',
         'commande_items.quantite',
-        'commande_items.prix_unitaire',
+        'commande_items.prix_unitaire as prix_total',
         'commande_items.instructions_speciales'
     )
-
     ->get();
+    $groupedCommandes = $CommandItems->groupBy(function ($item){
+return $item->reservation_id ? 'reservation_'.$item->reservation_id : 'emporter';
+    });
+$result = $groupedCommandes->map(function($items , $key){
+    $first=$items->first();
+    return [
+            'id_commande' => $key,
+            'table_id' => $first->table_id,
+            'nombre_personnes' => $first->nombre_personnes,
+            'type_commande' => $first->table_id ? 'sur_place' : 'emporter',
+            'total_commande' => $items->sum('prix_total'),
+              'articles' => ($items->map(function($item){
+                return [
+                    'id_ligne' => $item->id_ligne,
+                    'nom' => $item->nom,
+                    'quantite' => $item->quantite,
+                    'prix_total' => $item->prix_total,
+                    'instructions_speciales' => $item->instructions_speciales
+                ];
+    })->values()->all()),
+    ];
+})->values()->all();
      return [
-        'commande_items' => $Command,
+        'commande_items' => $result,
     ];
     }
 
