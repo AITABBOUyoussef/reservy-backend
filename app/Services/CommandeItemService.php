@@ -58,14 +58,16 @@ $id = auth()->id();
     ->join('produits','commande_items.produit_id','=',"produits.id")
     ->leftJoin('reservations','commande_items.reservation_id','=',"reservations.id")
     ->join('etablissements','etablissements.id','=','produits.etablissement_id')
+    ->join('produit_images','produit_images.produit_id','=','produits.id')
     ->where([
         ['commande_items.client_id',$id],
-        // ['produits.est_principale' , 1]
+         ['produit_images.est_principale' , 1],
     ])
     ->select(
         'commande_items.id as id_ligne',
         'commande_items.reservation_id',
         'produits.nom',
+        'produit_images.nom_image',
         'etablissements.id as id_eta',
         'etablissements.nom as nom_eta',
         'reservations.table_id',
@@ -101,6 +103,7 @@ $result = $sortedGroups->map(function($items , $key){
                 return [
                     'id_ligne' => $item->id_ligne,
                     'nom' => $item->nom,
+                    'image'=>$item->nom_image,
                     'quantite' => $item->quantite,
                     'prix_total' => $item->prix_total,
                     'instructions_speciales' => $item->instructions_speciales,
