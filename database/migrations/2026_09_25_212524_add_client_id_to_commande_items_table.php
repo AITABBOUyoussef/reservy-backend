@@ -9,8 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+// Ex?cute l?op?ration ? up ?.
     public function up(): void
     {
+// Traite la logique de la route ou du rappel.
         Schema::table('commande_items', function (Blueprint $table) {
          $table->foreignId('client_id')->nullable()->constrained('users');
         });
@@ -19,8 +21,10 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+// Ex?cute l?op?ration ? down ?.
     public function down(): void
     {
+// Traite la logique de la route ou du rappel.
         Schema::table('commande_items', function (Blueprint $table) {
              $table->dropColumn('client_id');
         });

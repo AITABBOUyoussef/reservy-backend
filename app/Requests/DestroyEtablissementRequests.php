@@ -6,15 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DestroyEtablissementRequests extends FormRequest
 {
-    public function authorize():bool
+// V?rifie l?autorisation de l?action.
+    public function authorize(): bool
     {
-    return true;
+        return true;
     }
- public function rules(): array
-{
-return [
-  'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
+// D?finit les r?gles de validation et d?acc?s.
+    public function rules(): array
+    {
+        return [
+            'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
 
-];
-}
+        ];
+    }
 }

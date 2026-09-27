@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class ProduitService
 {
+// R?cup?re une ressource.
     public function getProduits(int $etablissementId): array
     {
         $etablissement = Etablissement::findOrFail($etablissementId);
@@ -20,6 +21,7 @@ class ProduitService
         ];
     }
 
+// Ex?cute l?op?ration ? addProduit ?.
     public function addProduit(array $data): array
     {
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
@@ -44,6 +46,7 @@ class ProduitService
         ];
     }
 
+// Met ? jour une ressource existante.
     public function editProduit(array $data): array
     {
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
@@ -68,6 +71,7 @@ class ProduitService
         ];
     }
 
+// Supprime une ressource.
     public function deleteProduit(array $data): void
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
@@ -81,10 +85,11 @@ class ProduitService
         $produit->delete();
     }
 
+// Ex?cute l?op?ration ? ensureCategoryBelongsToEstablishment ?.
     private function ensureCategoryBelongsToEstablishment(int $categoryId, int $etablissementId): void
     {
         $categoryBelongsToEstablishment = \App\Models\Categorie::query()
-            ->whereKey($categoryId)
+            ->whereFKey($categoryId)
             ->where('etablissement_id', $etablissementId)
             ->exists();
 

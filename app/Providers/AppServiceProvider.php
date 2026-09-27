@@ -9,6 +9,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+// G?re l?op?ration d?authentification.
     public function register(): void
     {
         //
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+// Configure le composant au d?marrage.
     public function boot(): void
     {
         //

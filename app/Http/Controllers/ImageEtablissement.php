@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 
 class ImageEtablissement extends Controller
 {
-     public function __construct(protected ImageEtablissementService $etablissemenImagetService ) {}
+// Initialise le composant et ses d?pendances.
+    public function __construct(protected ImageEtablissementService $etablissemenImagetService) {}
 
 
+// Liste les ressources disponibles.
     public function index()
     {
         //
@@ -21,12 +23,13 @@ class ImageEtablissement extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(ImageEtablissementRequests $request) : JsonResponse
+// Cr?e une nouvelle ressource.
+    public function store(ImageEtablissementRequests $request): JsonResponse
     {
 
-$data = $this->etablissemenImagetService->AddImage($request->validated());
-     return response()->json([
-        'success' => true,
+        $data = $this->etablissemenImagetService->AddImage($request->validated());
+        return response()->json([
+            'success' => true,
             'message' => 'Add Image de Etablissement réussie.',
             'image'    => $data['image'],
         ], 200);
@@ -36,6 +39,7 @@ $data = $this->etablissemenImagetService->AddImage($request->validated());
     /**
      * Display the specified resource.
      */
+// R?cup?re une ressource.
     public function show(string $id)
     {
         //
@@ -44,6 +48,7 @@ $data = $this->etablissemenImagetService->AddImage($request->validated());
     /**
      * Update the specified resource in storage.
      */
+// Met ? jour une ressource existante.
     public function update(Request $request, string $id)
     {
         //
@@ -52,18 +57,20 @@ $data = $this->etablissemenImagetService->AddImage($request->validated());
     /**
      * Remove the specified resource from storage.
      */
+// Supprime une ressource.
     public function destroy(DeletImageEtablissementRequests $request): JsonResponse
     {
-      $this->etablissemenImagetService->deleteImage($request->validated());
-          return response()->json([
+        $this->etablissemenImagetService->deleteImage($request->validated());
+        return response()->json([
             'success' => true,
             'message' => 'Image Delete'
         ], 200);
     }
-       public function EditImage(DeletImageEtablissementRequests $request): JsonResponse
+// Met ? jour une ressource existante.
+    public function EditImage(DeletImageEtablissementRequests $request): JsonResponse
     {
-      $this->etablissemenImagetService->EditImage($request->validated());
-          return response()->json([
+        $this->etablissemenImagetService->EditImage($request->validated());
+        return response()->json([
             'success' => true,
             'message' => 'Image principale mise à jour avec succès'
         ], 200);

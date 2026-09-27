@@ -22,6 +22,7 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+// Ex?cute l?op?ration ? definition ?.
     public function definition(): array
     {
         return [
@@ -36,6 +37,7 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
+// Ex?cute l?op?ration ? unverified ?.
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [

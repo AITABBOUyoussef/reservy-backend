@@ -10,20 +10,23 @@ use Illuminate\Validation\ValidationException;
 
 class ReservationService
 {
+// R?cup?re une ressource.
     public function getReservations(): array
     {
         $user = auth()->user();
 
-       $query = Reservation::with([
-    'client',
-    'table',
-    'commandeItems',
-    'etablissement.images' => function ($query) {
-        $query->where('est_principale', 1);
-    }
-]);
+        $query = Reservation::with([
+            'client',
+            'table',
+            'commandeItems',
+// Traite la logique de la route ou du rappel.
+            'etablissement.images' => function ($query) {
+                $query->where('est_principale', 1);
+            }
+        ]);
 
         if ($user->hasRole('gerant')) {
+// Traite la logique de la route ou du rappel.
             $query->whereHas('etablissement', function ($q) use ($user) {
                 $q->where('gerant_id', $user->id);
             });
@@ -39,6 +42,7 @@ class ReservationService
         ];
     }
 
+// Cr?e une nouvelle ressource.
     public function createReservation(array $data): array
     {
         Etablissement::findOrFail($data['etablissement_id']);
@@ -93,6 +97,7 @@ class ReservationService
         ];
     }
 
+// R?cup?re une ressource.
     public function getReservation(int $id): array
     {
         $reservation = Reservation::with([
@@ -118,6 +123,7 @@ class ReservationService
         return ['reservation' => $reservation];
     }
 
+// Met ? jour une ressource existante.
     public function updateReservation(int $id, array $data): array
     {
         $reservation = Reservation::with('etablissement')->findOrFail($id);
@@ -136,13 +142,15 @@ class ReservationService
 
         $modifications = [];
 
-        foreach ([
-            'etablissement_id',
-            'table_id',
-            'date_reservation',
-            'heure_reservation',
-            'nombre_personnes',
-        ] as $champ) {
+        foreach (
+            [
+                'etablissement_id',
+                'table_id',
+                'date_reservation',
+                'heure_reservation',
+                'nombre_personnes',
+            ] as $champ
+        ) {
             if (array_key_exists($champ, $data)) {
                 $modifications[$champ] = $data[$champ];
             }
@@ -169,8 +177,10 @@ class ReservationService
                     'Vous ne pouvez pas gérer cet établissement.'
                 );
             }
-        } elseif (! $estAdmin
-            &&   $etablissementId !==   $reservation->etablissement_id) {
+        } elseif (
+            ! $estAdmin
+            &&   $etablissementId !==   $reservation->etablissement_id
+        ) {
             throw new AuthorizationException(
                 'Vous ne pouvez pas déplacer cette réservation.'
             );
@@ -188,7 +198,7 @@ class ReservationService
         if ($tableId) {
             $table = TableResto::findOrFail($tableId);
 
-            if (  $table->etablissement_id !==   $etablissementId) {
+            if ($table->etablissement_id !==   $etablissementId) {
                 throw ValidationException::withMessages([
                     'table_id' => 'Cette table n’appartient pas à cet établissement.',
                 ]);
@@ -228,6 +238,7 @@ class ReservationService
         ];
     }
 
+// Supprime une ressource.
     public function deleteReservation(int $id): void
     {
         $reservation = Reservation::with('etablissement')->findOrFail($id);

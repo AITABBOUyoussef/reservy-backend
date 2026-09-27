@@ -9,14 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+// Ex?cute l?op?ration ? up ?.
     public function up(): void
     {
+// Traite la logique de la route ou du rappel.
         Schema::create('cache', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration')->index();
         });
 
+// Traite la logique de la route ou du rappel.
         Schema::create('cache_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
@@ -27,6 +30,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+// Ex?cute l?op?ration ? down ?.
     public function down(): void
     {
         Schema::dropIfExists('cache');

@@ -13,13 +13,14 @@ class ProfilService
     /**
      * Create a new class instance.
      */
+// Met ? jour une ressource existante.
     public function editProfil(User $user, array $data)
     {
 
         if (isset($data['avatar'])) {
 
             $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
-      if (!empty($user->public_id)) {
+            if (!empty($user->public_id)) {
                 $cloudinary->uploadApi()->destroy($user->public_id);
             }
 
@@ -31,7 +32,7 @@ class ProfilService
             $user->public_id = $uploaded['public_id'];
         }
 
-          $user->fill([
+        $user->fill([
             'name'  => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
             'phone' => $data['phone'] ?? $user->phone,
@@ -57,6 +58,7 @@ class ProfilService
         ];
     }
 
+// Supprime une ressource.
     public function destroy(User $user)
     {
         if (!empty($user->public_id)) {

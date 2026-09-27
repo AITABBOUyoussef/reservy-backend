@@ -9,8 +9,10 @@ use Illuminate\Http\JsonResponse;
 
 class ReservationController extends Controller
 {
+// Initialise le composant et ses d?pendances.
     public function __construct(protected reservationService $reservationService) {}
 
+// Liste les ressources disponibles.
     public function index(): JsonResponse
     {
         $data = $this->reservationService->getReservations();
@@ -18,6 +20,7 @@ class ReservationController extends Controller
         return response()->json(['success' => true, 'reservations' => $data['reservations']]);
     }
 
+// Cr?e une nouvelle ressource.
     public function store(ReservationRequests $request): JsonResponse
     {
         $data = $this->reservationService->createReservation($request->validated());
@@ -29,6 +32,7 @@ class ReservationController extends Controller
         ], 201);
     }
 
+// R?cup?re une ressource.
     public function show(int $reservation): JsonResponse
     {
         $data = $this->reservationService->getReservation($reservation);
@@ -36,6 +40,7 @@ class ReservationController extends Controller
         return response()->json(['success' => true, 'reservation' => $data['reservation']]);
     }
 
+// Met ? jour une ressource existante.
     public function update(UpdateReservationRequest $request, int $reservation): JsonResponse
     {
         $data = $this->reservationService->updateReservation($reservation, $request->validated());
@@ -47,6 +52,7 @@ class ReservationController extends Controller
         ]);
     }
 
+// Supprime une ressource.
     public function destroy(int $reservation): JsonResponse
     {
         $this->reservationService->deleteReservation($reservation);

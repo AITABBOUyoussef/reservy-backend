@@ -9,11 +9,14 @@ class Categorie extends Model
 {
     protected $fillable = ['nom'];
 
+// Ex?cute l?op?ration ? produits ?.
     public function produits(): HasMany
     {
         return $this->hasMany(Produit::class);
     }
-     public function etablissements () {
- return $this->belongsTo(Etablissement::class);
-     }
+// Ex?cute l?op?ration ? etablissements ?.
+    public function etablissements()
+    {
+        return $this->belongsTo(Etablissement::class);
+    }
 }

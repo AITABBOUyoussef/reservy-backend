@@ -14,11 +14,13 @@ class Review extends Model
         'commentaire',
     ];
 
+// Ex?cute l?op?ration ? client ?.
     public function client(): BelongsTo
     {
         return $this->belongsTo(User::class, 'client_id');
     }
 
+// Ex?cute l?op?ration ? etablissement ?.
     public function etablissement(): BelongsTo
     {
         return $this->belongsTo(Etablissement::class);

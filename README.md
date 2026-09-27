@@ -63,6 +63,23 @@ php artisan serve
 
 L'API est disponible sur `http://127.0.0.1:8000/api`.
 
+La commande `php artisan migrate --seed` charge aussi les donnees de demonstration :
+
+- 8 etablissements acceptes ;
+- 8 tables par etablissement ;
+- categories, produits, options et images ;
+- un compte admin, un compte client et 8 comptes gerants.
+
+Comptes de demonstration :
+
+```text
+Admin  : demo.admin@reservy.test / Demo1234!
+Client : demo.client@reservy.test / Demo1234!
+Gerant : demo.gerant1@reservy.test / Demo1234!
+```
+
+Les comptes gerants vont de `demo.gerant1@reservy.test` a `demo.gerant8@reservy.test`.
+
 ## Variables d'environnement
 
 Les variables principales sont :
@@ -182,4 +199,3 @@ php artisan test
 ```
 
 Les tests fonctionnels peuvent etre etendus pour couvrir Google Login, les controles d'appartenance, les roles et le filtrage des etablissements avec produits.
-

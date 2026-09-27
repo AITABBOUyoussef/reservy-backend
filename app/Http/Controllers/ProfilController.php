@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 class ProfilController extends Controller
 {
 
+// Initialise le composant et ses d?pendances.
     public function __construct(
         protected ProfilService $profilService
-    ){}
+    ) {}
 
 
 
 
+// Liste les ressources disponibles.
     public function index()
     {
         //
@@ -25,12 +27,13 @@ class ProfilController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+// Cr?e une nouvelle ressource.
     public function store(EditProfilRequest $request): JsonResponse
     {
-    // dd($request->all());
-    $data = $this->profilService->editProfil($request->user(), $request->validated());
+        // dd($request->all());
+        $data = $this->profilService->editProfil($request->user(), $request->validated());
         return response()->json([
-        'success' => true,
+            'success' => true,
             'message' => 'Profil mis à jour avec succès.',
             // 'token'   => $data['token'],
             'user'    => $data['user'],
@@ -40,6 +43,7 @@ class ProfilController extends Controller
     /**
      * Display the specified resource.
      */
+// R?cup?re une ressource.
     public function show(string $id)
     {
         //
@@ -48,6 +52,7 @@ class ProfilController extends Controller
     /**
      * Update the specified resource in storage.
      */
+// Met ? jour une ressource existante.
     public function update(Request $request, string $id)
     {
         //
@@ -56,9 +61,10 @@ class ProfilController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+// Supprime une ressource.
     public function destroy(Request $request)
     {
-    $this->profilService->destroy($request->user());
+        $this->profilService->destroy($request->user());
 
         return response()->json([
             'success' => true,

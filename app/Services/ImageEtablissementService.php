@@ -8,11 +8,13 @@ use Cloudinary\Cloudinary;
 
 class ImageEtablissementService
 {
+// Ex?cute l?op?ration ? cloudinary ?.
     private function cloudinary()
     {
         return new Cloudinary(env('CLOUDINARY_URL'));
     }
 
+// Ex?cute l?op?ration ? AddImage ?.
     public function AddImage(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
@@ -22,7 +24,6 @@ class ImageEtablissementService
             'folder' => 'reservy/etablissements'
         ]);
 
-        // Ila kant principale, rdd lokhrin 0
         if (!empty($data['est_principale'])) {
             EtablissementImage::where('etablissement_id', $etablissement->id)->update(['est_principale' => 0]);
         }
@@ -35,6 +36,7 @@ class ImageEtablissementService
         ]);
     }
 
+// Met ? jour une ressource existante.
     public function EditImage(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
@@ -49,6 +51,7 @@ class ImageEtablissementService
         return false;
     }
 
+// Supprime une ressource.
     public function deleteImage(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);

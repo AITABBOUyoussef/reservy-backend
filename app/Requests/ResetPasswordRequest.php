@@ -6,18 +6,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ResetPasswordRequest extends FormRequest
 {
-  public function authorize(): bool
+// V?rifie l?autorisation de l?action.
+    public function authorize(): bool
     {
         return true;
     }
+// D?finit les r?gles de validation et d?acc?s.
     public function rules(): array
     {
         return [
-'token'=>['required'],
-            'email'                 => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
-            'password'              => ['required', 'string', 'min:8', 'confirmed'],
+            'token' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
+// Ex?cute l?op?ration ? messages ?.
     public function messages(): array
     {
         return [

@@ -6,23 +6,24 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class GarantEtablissementRequests extends FormRequest
 {
- public function authorize():bool
+// V?rifie l?autorisation de l?action.
+    public function authorize(): bool
     {
-    return true;
+        return true;
     }
- public function rules(): array
-{
-    return [
-      
-        'etablissementId'  => ['required', 'integer', 'exists:etablissements,id'],
+// D?finit les r?gles de validation et d?acc?s.
+    public function rules(): array
+    {
+        return [
 
-    ];
-}
+            'etablissementId'  => ['required', 'integer', 'exists:etablissements,id'],
 
-public function messages(): array
-{
-    return [
+        ];
+    }
 
-    ];
-}
+// Ex?cute l?op?ration ? messages ?.
+    public function messages(): array
+    {
+        return [];
+    }
 }

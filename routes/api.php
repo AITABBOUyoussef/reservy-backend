@@ -23,7 +23,9 @@ Route::get('/GetEtablissement', [CreeEtablissementController::class, 'getEtablis
 Route::post('/GetEtablissementDet', [CreeEtablissementController::class, 'getEtablissementDet']);
 
 
+// Traite la logique de la route ou du rappel.
 Route::middleware('auth:sanctum')->group(function () {
+// Traite la logique de la route ou du rappel.
     Route::middleware('role:admin')->group(function () {
     Route::post('/DestroyEtablissement', [CreeEtablissementController::class, 'destroy']);
     Route::get('/EtablissementAttente', [CreeEtablissementController::class, 'EtablissementAttente']);
@@ -31,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/AcceptEtablissement', [CreeEtablissementController::class, 'AcceptEtablissement']);
     });
 
+// Traite la logique de la route ou du rappel.
     Route::middleware('role:admin|gerant')->group(function () {
     Route::post('/EditEtablissement', [CreeEtablissementController::class, 'EditEtablissement']);
     Route::post('/AddImage', [ImageEtablissement::class, 'store']);
@@ -53,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/EditProduitImage', [ProduitImageController::class, 'setMain']);
     });
 
+// Traite la logique de la route ou du rappel.
     Route::middleware('role:client|admin|gerant')->group(function () {
     Route::post('/CreeEtablissement', [CreeEtablissementController::class, 'store']);
     });

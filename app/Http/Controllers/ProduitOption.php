@@ -12,11 +12,13 @@ class ProduitOption extends Controller
     /**
      * Display a listing of the resource.
      */
-      public function __construct(protected ProduitOptionService $optionService) {}
+// Initialise le composant et ses d?pendances.
+    public function __construct(protected ProduitOptionService $optionService) {}
 
+// Cr?e une nouvelle ressource.
     public function store(ProduitOptionRequests $request)
     {
- $data = $this->optionService->store($request->validated());
+        $data = $this->optionService->store($request->validated());
 
         return response()->json([
             'success' => true,
@@ -28,14 +30,13 @@ class ProduitOption extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function index(Request $request)
-    {
-
-    }
+// Liste les ressources disponibles.
+    public function index(Request $request) {}
 
     /**
      * Display the specified resource.
      */
+// R?cup?re une ressource.
     public function show(string $id)
     {
         //
@@ -44,6 +45,7 @@ class ProduitOption extends Controller
     /**
      * Update the specified resource in storage.
      */
+// Met ? jour une ressource existante.
     public function update(Request $request, string $id)
     {
         //
@@ -52,10 +54,11 @@ class ProduitOption extends Controller
     /**
      * Remove the specified resource from storage.
      */
+// Supprime une ressource.
     public function destroy(DeletOptionEtablissementRequests $request)
     {
         $this->optionService->destroy($request->validated());
- return response()->json([
+        return response()->json([
             'success' => true,
             'message' => 'Tabl Delete'
         ], 200);

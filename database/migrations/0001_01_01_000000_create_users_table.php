@@ -9,8 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+// Ex?cute l?op?ration ? up ?.
     public function up(): void
     {
+// Traite la logique de la route ou du rappel.
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -21,12 +23,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+// Traite la logique de la route ou du rappel.
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+// Traite la logique de la route ou du rappel.
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -40,6 +44,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+// Ex?cute l?op?ration ? down ?.
     public function down(): void
     {
         Schema::dropIfExists('users');

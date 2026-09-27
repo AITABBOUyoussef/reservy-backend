@@ -13,9 +13,11 @@ use Illuminate\Http\Request;
 
 class TablEtablissement extends Controller
 {
-     public function __construct(protected ServicesTablEtablissement $etablissemenTablService ) {}
+// Initialise le composant et ses d?pendances.
+    public function __construct(protected ServicesTablEtablissement $etablissemenTablService) {}
 
-     public function AddTabl(TablEtablissementRequests $request) : JsonResponse
+// Ex?cute l?op?ration ? AddTabl ?.
+    public function AddTabl(TablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->AddTabl($request->validated());
 
@@ -25,7 +27,8 @@ class TablEtablissement extends Controller
             'tabl'    => $data['tabl'],
         ], 200);
     }
-     public function EditTabl(EditTablEtablissementRequests $request) : JsonResponse
+// Met ? jour une ressource existante.
+    public function EditTabl(EditTablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->EditTabl($request->validated());
 
@@ -37,7 +40,8 @@ class TablEtablissement extends Controller
     }
 
 
-      public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
+// Ex?cute l?op?ration ? daleteTabl ?.
+    public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
     {
         $this->etablissemenTablService->daleteTabl($request->validated());
 
@@ -46,6 +50,4 @@ class TablEtablissement extends Controller
             'message' => 'Tabl Delete'
         ], 200);
     }
-
-
 }

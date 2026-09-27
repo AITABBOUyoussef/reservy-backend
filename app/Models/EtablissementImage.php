@@ -16,12 +16,12 @@ class EtablissementImage extends Model
         'etablissement_id',
     ];
 
- 
 
 
+
+// Ex?cute l?op?ration ? etablissement ?.
     public function etablissement(): BelongsTo
     {
         return $this->belongsTo(Etablissement::class);
     }
-
 }
