@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreeEtablissementService
 {
+// Ex?cute l?op?ration ? CreeEtablissement ?.
     public function CreeEtablissement(array $data)
     {
         $etablissement = Etablissement::create([
@@ -26,6 +27,7 @@ class CreeEtablissementService
 
         ];
     }
+// Ex?cute l?op?ration ? EtablissementAttente ?.
     public function EtablissementAttente()
     {
         $Etablissement_en_attente = DB::table('etablissements')
@@ -35,8 +37,10 @@ class CreeEtablissementService
             'Etablissement_en_attente'  => $Etablissement_en_attente,
         ];
     }
+// R?cup?re une ressource.
     public function getAllEtablissement(User $user)
     {
+// Traite la logique de la route ou du rappel.
         $Etablissement = Etablissement::with(['images' => function ($query) {
             $query->where('est_principale', 1);
         }])->get();
@@ -45,6 +49,7 @@ class CreeEtablissementService
             'Etablissement'  => $Etablissement,
         ];
     }
+// R?cup?re une ressource.
     public function getEtablissementGarant(array $data)
     {
 
@@ -70,6 +75,7 @@ class CreeEtablissementService
             'msg' => 'Welecom'
         ];
     }
+// R?cup?re une ressource.
     public function getEtablissement()
     {
         $etablissements = Etablissement::with('images')
@@ -82,6 +88,7 @@ class CreeEtablissementService
             'etablissements' => $etablissements,
         ];
     }
+// R?cup?re une ressource.
     public function getEtablissementDettt(array $data)
     {
         $etablissementId = $data['etablissementId'];
@@ -91,6 +98,7 @@ class CreeEtablissementService
             'etablissements' => $etablissements,
         ];
     }
+// R?cup?re une ressource.
     public function getEtablissementDet(array $data)
     {
         $etablissement = Etablissement::with([
@@ -110,6 +118,7 @@ class CreeEtablissementService
     }
 
 
+// Ex?cute l?op?ration ? AcceptEtablissement ?.
     public function AcceptEtablissement(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
@@ -131,6 +140,7 @@ class CreeEtablissementService
             'user' => $user,
         ];
     }
+// Met ? jour une ressource existante.
     public function EditEtablissement(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);
@@ -161,6 +171,7 @@ class CreeEtablissementService
         ];
     }
 
+// Supprime une ressource.
     public function destroy(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['IdEtablissement']);

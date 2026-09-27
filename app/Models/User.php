@@ -43,19 +43,23 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+// Ex?cute l?op?ration ? role ?.
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
+// Ex?cute l?op?ration ? etablissments ?.
     public function etablissments()
     {
         return $this->hasMany(Etablissement::class);
     }
+// Ex?cute l?op?ration ? reviews ?.
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class, 'client_id');
     }
 
+// Ex?cute l?op?ration ? reservations ?.
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class, 'client_id');
@@ -67,6 +71,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+// Ex?cute l?op?ration ? casts ?.
     protected function casts(): array
     {
         return [

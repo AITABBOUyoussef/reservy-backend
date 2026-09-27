@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class ReservationService
 {
+// R?cup?re une ressource.
     public function getReservations(): array
     {
         $user = auth()->user();
@@ -18,12 +19,14 @@ class ReservationService
             'client',
             'table',
             'commandeItems',
+// Traite la logique de la route ou du rappel.
             'etablissement.images' => function ($query) {
                 $query->where('est_principale', 1);
             }
         ]);
 
         if ($user->hasRole('gerant')) {
+// Traite la logique de la route ou du rappel.
             $query->whereHas('etablissement', function ($q) use ($user) {
                 $q->where('gerant_id', $user->id);
             });
@@ -39,6 +42,7 @@ class ReservationService
         ];
     }
 
+// Cr?e une nouvelle ressource.
     public function createReservation(array $data): array
     {
         Etablissement::findOrFail($data['etablissement_id']);
@@ -93,6 +97,7 @@ class ReservationService
         ];
     }
 
+// R?cup?re une ressource.
     public function getReservation(int $id): array
     {
         $reservation = Reservation::with([
@@ -118,6 +123,7 @@ class ReservationService
         return ['reservation' => $reservation];
     }
 
+// Met ? jour une ressource existante.
     public function updateReservation(int $id, array $data): array
     {
         $reservation = Reservation::with('etablissement')->findOrFail($id);
@@ -232,6 +238,7 @@ class ReservationService
         ];
     }
 
+// Supprime une ressource.
     public function deleteReservation(int $id): void
     {
         $reservation = Reservation::with('etablissement')->findOrFail($id);

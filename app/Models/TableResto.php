@@ -20,10 +20,12 @@ class TableResto extends Model
     ];
 
 
+// Ex?cute l?op?ration ? etablissement ?.
     public function etablissement(): BelongsTo
     {
         return $this->belongsTo(Etablissement::class);
     }
+// Ex?cute l?op?ration ? reservations ?.
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class, 'table_id');

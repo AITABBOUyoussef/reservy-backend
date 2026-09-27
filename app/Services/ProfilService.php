@@ -13,6 +13,7 @@ class ProfilService
     /**
      * Create a new class instance.
      */
+// Met ? jour une ressource existante.
     public function editProfil(User $user, array $data)
     {
 
@@ -57,6 +58,7 @@ class ProfilService
         ];
     }
 
+// Supprime une ressource.
     public function destroy(User $user)
     {
         if (!empty($user->public_id)) {

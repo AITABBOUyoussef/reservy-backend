@@ -19,6 +19,7 @@ class EtablissementImage extends Model
 
 
 
+// Ex?cute l?op?ration ? etablissement ?.
     public function etablissement(): BelongsTo
     {
         return $this->belongsTo(Etablissement::class);

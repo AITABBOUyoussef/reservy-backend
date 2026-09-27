@@ -16,9 +16,11 @@ class CreeEtablissementController extends Controller
     /**
      * Display a listing of the resource.
      */
+// Initialise le composant et ses d?pendances.
     public function __construct(protected CreeEtablissementService $etablissementService) {}
 
 
+// Ex?cute l?op?ration ? EtablissementAttente ?.
     public function EtablissementAttente()
     {
         $data = $this->etablissementService->EtablissementAttente();
@@ -28,6 +30,7 @@ class CreeEtablissementController extends Controller
             'Etablissement_en_attente'    => $data['Etablissement_en_attente'],
         ], 200);
     }
+// R?cup?re une ressource.
     public function getAllEtablissement(Request $request)
     {
         $data = $this->etablissementService->getAllEtablissement($request->user());
@@ -37,6 +40,7 @@ class CreeEtablissementController extends Controller
             'Etablissement'    => $data['Etablissement'],
         ], 200);
     }
+// R?cup?re une ressource.
     public function getEtablissement()
     {
         $data = $this->etablissementService->getEtablissement();
@@ -46,6 +50,7 @@ class CreeEtablissementController extends Controller
             'etablissements'    => $data['etablissements'],
         ], 200);
     }
+// R?cup?re une ressource.
     public function getEtablissementGarant(Request $request)
     {
 
@@ -58,6 +63,7 @@ class CreeEtablissementController extends Controller
             'etablissements'    => $dataa['etablissements'],
         ], 200);
     }
+// R?cup?re une ressource.
     public function getEtablissementDet(Request $request): JsonResponse
     {
         $data = $request->validate([
@@ -71,6 +77,7 @@ class CreeEtablissementController extends Controller
             'etablissements'    => $result['etablissements'],
         ], 200);
     }
+// Ex?cute l?op?ration ? AcceptEtablissement ?.
     public function AcceptEtablissement(AcceptEtablissementRequest $request): JsonResponse
     {
         $data = $this->etablissementService->AcceptEtablissement($request->validated());
@@ -81,6 +88,7 @@ class CreeEtablissementController extends Controller
         ], 200);
     }
 
+// Met ? jour une ressource existante.
     public function EditEtablissement(EditEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissementService->EditEtablissement($request->validated());
@@ -92,6 +100,7 @@ class CreeEtablissementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+// Cr?e une nouvelle ressource.
     public function store(CreeEtablissementRequest $request): JsonResponse
     {
         $data = $request->validated();
@@ -107,6 +116,7 @@ class CreeEtablissementController extends Controller
     /**
      * Display the specified resource.
      */
+// R?cup?re une ressource.
     public function show(string $id)
     {
         //
@@ -115,6 +125,7 @@ class CreeEtablissementController extends Controller
     /**
      * Update the specified resource in storage.
      */
+// Met ? jour une ressource existante.
     public function update(Request $request, string $id)
     {
         //
@@ -123,6 +134,7 @@ class CreeEtablissementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+// Supprime une ressource.
     public function destroy(DestroyEtablissementRequests $request)
     {
 

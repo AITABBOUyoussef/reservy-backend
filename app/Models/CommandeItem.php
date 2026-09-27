@@ -15,11 +15,13 @@ class CommandeItem extends Model
         'instructions_speciales'
     ];
 
+// Ex?cute l?op?ration ? reservation ?.
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);
     }
 
+// Ex?cute l?op?ration ? produit ?.
     public function produit()
     {
         return $this->belongsTo(Produit::class);

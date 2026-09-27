@@ -9,8 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+// Ex?cute l?op?ration ? up ?.
     public function up(): void
     {
+// Traite la logique de la route ou du rappel.
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('queue')->index();
@@ -21,6 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('created_at');
         });
 
+// Traite la logique de la route ou du rappel.
         Schema::create('job_batches', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
@@ -34,6 +37,7 @@ return new class extends Migration
             $table->integer('finished_at')->nullable();
         });
 
+// Traite la logique de la route ou du rappel.
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
@@ -48,6 +52,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+// Ex?cute l?op?ration ? down ?.
     public function down(): void
     {
         Schema::dropIfExists('jobs');

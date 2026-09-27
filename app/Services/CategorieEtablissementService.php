@@ -7,6 +7,7 @@ use App\Models\Categorie;
 
 class CategorieEtablissementService
 {
+// Ex?cute l?op?ration ? addCategorie ?.
     public function addCategorie(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
@@ -20,6 +21,7 @@ class CategorieEtablissementService
             'categorie' => $categorie,
         ];
     }
+// Supprime une ressource.
     public function deleteCategorie(array $data)
     {
         $gerant_id = auth()->id();

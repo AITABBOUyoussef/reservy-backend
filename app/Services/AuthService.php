@@ -15,6 +15,7 @@ class AuthService
     /**
      * Create a new class instance.
      */
+// G?re l?op?ration d?authentification.
     public function login(array $data): array
     {
         $user = User::where('email', $data['email'])->first();
@@ -31,6 +32,7 @@ class AuthService
         ];
     }
 
+// G?re l?op?ration d?authentification.
     public function googleLogin(array $data): array
     {
 
@@ -60,6 +62,7 @@ class AuthService
         ];
     }
 
+// G?re l?op?ration d?authentification.
     public function inscription(array $data)
     {
         $user = User::create([
@@ -77,6 +80,7 @@ class AuthService
 
         ];
     }
+// G?re l?op?ration d?authentification.
     public function forgotPassword(array $data): array
     {
         $token = Str::random(64);
@@ -85,6 +89,7 @@ class AuthService
             ['token' => $token, 'created_at' => now()]
         );
         $resetLink = env('FRONTEND_URL') . "/reset-password?token=" . $token . "&email=" . urlencode($data['email']);
+// Traite la logique de la route ou du rappel.
         Mail::send([], [], function ($message) use ($data, $resetLink) {
             $message->to($data['email'])
                 ->subject('Réinitialisation de votre mot de passe - Reservy')
@@ -102,6 +107,7 @@ class AuthService
         ];
     }
 
+// G?re l?op?ration d?authentification.
     public function resetPassword(array $data): array
     {
         $resetRecord = DB::table('password_reset_tokens')
@@ -122,6 +128,7 @@ class AuthService
             'message' => 'Votre mot de passe a été réinitialisé avec succès.'
         ];
     }
+// G?re l?op?ration d?authentification.
     public function logout(User $user)
     {
         $user->currentAccessToken()->delete();

@@ -7,6 +7,7 @@ use App\Models\TableResto;
 
 class TablEtablissement
 {
+// Ex?cute l?op?ration ? AddTabl ?.
     public function AddTabl(array $data)
     {
         $etablissement = Etablissement::findOrFail($data['etablissement_id']);
@@ -23,6 +24,7 @@ class TablEtablissement
             ];
         }
     }
+// Met ? jour une ressource existante.
     public function EditTabl(array $data)
     {
         $gerant_id = auth()->id();
@@ -43,6 +45,7 @@ class TablEtablissement
         }
     }
 
+// Ex?cute l?op?ration ? daleteTabl ?.
     public function daleteTabl(array $data)
     {
         $gerant_id = auth()->id();

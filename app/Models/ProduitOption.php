@@ -13,6 +13,7 @@ class ProduitOption extends Model
         'prix_supplementaire'
     ];
 
+// Ex?cute l?op?ration ? produit ?.
     public function produit(): BelongsTo
     {
         return $this->belongsTo(Produit::class);

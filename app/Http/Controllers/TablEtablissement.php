@@ -13,8 +13,10 @@ use Illuminate\Http\Request;
 
 class TablEtablissement extends Controller
 {
+// Initialise le composant et ses d?pendances.
     public function __construct(protected ServicesTablEtablissement $etablissemenTablService) {}
 
+// Ex?cute l?op?ration ? AddTabl ?.
     public function AddTabl(TablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->AddTabl($request->validated());
@@ -25,6 +27,7 @@ class TablEtablissement extends Controller
             'tabl'    => $data['tabl'],
         ], 200);
     }
+// Met ? jour une ressource existante.
     public function EditTabl(EditTablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->EditTabl($request->validated());
@@ -37,6 +40,7 @@ class TablEtablissement extends Controller
     }
 
 
+// Ex?cute l?op?ration ? daleteTabl ?.
     public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
     {
         $this->etablissemenTablService->daleteTabl($request->validated());

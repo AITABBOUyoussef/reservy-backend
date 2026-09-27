@@ -24,10 +24,12 @@ class AuthController extends Controller
     /**
      * Display a listing of the resource.
      */
+// Initialise le composant et ses d?pendances.
     public function __construct(
         protected AuthService $authService
     ) {}
 
+// G?re l?op?ration d?authentification.
     public function login(LoginRequest $request): JsonResponse
     {
         $data = $this->authService->login($request->validated());
@@ -39,6 +41,7 @@ class AuthController extends Controller
             'role' => $data['Role'],
         ], 200);
     }
+// G?re l?op?ration d?authentification.
     public function inscription(InscriptionRequest $request): JsonResponse
     {
         $data = $this->authService->inscription($request->validated());
@@ -53,6 +56,7 @@ class AuthController extends Controller
         ], 201);
     }
 
+// G?re l?op?ration d?authentification.
     public function logout(Request $request)
     {
         $this->authService->logout($request->user());
@@ -66,6 +70,7 @@ class AuthController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+// Cr?e une nouvelle ressource.
     public function store(Request $request)
     {
         //
@@ -74,6 +79,7 @@ class AuthController extends Controller
     /**
      * Display the specified resource.
      */
+// R?cup?re une ressource.
     public function show(string $id)
     {
         //
@@ -82,6 +88,7 @@ class AuthController extends Controller
     /**
      * Update the specified resource in storage.
      */
+// Met ? jour une ressource existante.
     public function update(Request $request, string $id)
     {
         //
@@ -90,6 +97,7 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+// G?re l?op?ration d?authentification.
     public function googleLogin(GoogleLoginRequest $request): JsonResponse
     {
         $data = $this->authService->googleLogin($request->validated());
@@ -103,6 +111,7 @@ class AuthController extends Controller
 
         ], 200);
     }
+// G?re l?op?ration d?authentification.
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $data = $this->authService->forgotPassword($request->validated());
@@ -113,6 +122,7 @@ class AuthController extends Controller
         ], 200);
     }
 
+// G?re l?op?ration d?authentification.
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         try {

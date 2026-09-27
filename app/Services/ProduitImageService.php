@@ -8,11 +8,13 @@ use Cloudinary\Cloudinary;
 
 class ProduitImageService
 {
+// Ex?cute l?op?ration ? cloudinary ?.
     private function cloudinary()
     {
         return new Cloudinary(env('CLOUDINARY_URL'));
     }
 
+// Ex?cute l?op?ration ? addImage ?.
     public function addImage(array $data)
     {
         $produit = Produit::with('etablissement')->findOrFail($data['produit_id']);
@@ -43,6 +45,7 @@ class ProduitImageService
         return false;
     }
 
+// Supprime une ressource.
     public function deleteImage(array $data)
     {
         $produit = Produit::with('etablissement')->findOrFail($data['IdProduit']);
@@ -63,6 +66,7 @@ class ProduitImageService
         return false;
     }
 
+// Pr?pare ou met ? jour les donn?es.
     public function setMainImage(array $data)
     {
         $produit = Produit::with('etablissement')->findOrFail($data['IdProduit']);

@@ -10,8 +10,10 @@ use Illuminate\Http\JsonResponse;
 
 class ProduitImageController extends Controller
 {
+// Initialise le composant et ses d?pendances.
     public function __construct(protected ProduitImageService $produitImageService) {}
 
+// Cr?e une nouvelle ressource.
     public function store(ProduitImageRequests $request): JsonResponse
     {
         $data = $this->produitImageService->addImage($request->validated());
@@ -23,6 +25,7 @@ class ProduitImageController extends Controller
         ], 201);
     }
 
+// Supprime une ressource.
     public function destroy(DeletProduitImageRequests $request): JsonResponse
     {
         $this->produitImageService->deleteImage($request->validated());
@@ -33,6 +36,7 @@ class ProduitImageController extends Controller
         ]);
     }
 
+// Pr?pare ou met ? jour les donn?es.
     public function setMain(EditProduitImageRequests $request): JsonResponse
     {
         $this->produitImageService->setMainImage($request->validated());

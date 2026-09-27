@@ -10,8 +10,10 @@ use Illuminate\Http\JsonResponse;
 
 class ProduitController extends Controller
 {
+// Initialise le composant et ses d?pendances.
     public function __construct(protected ProduitService $produitService) {}
 
+// Liste les ressources disponibles.
     public function index(int $etablissementId): JsonResponse
     {
         $data = $this->produitService->getProduits($etablissementId);
@@ -22,6 +24,7 @@ class ProduitController extends Controller
         ], 200);
     }
 
+// Ex?cute l?op?ration ? addProduit ?.
     public function addProduit(ProduitRequests $request): JsonResponse
     {
         $data = $this->produitService->addProduit($request->validated());
@@ -33,6 +36,7 @@ class ProduitController extends Controller
         ], 201);
     }
 
+// Met ? jour une ressource existante.
     public function editProduit(EditProduitRequests $request): JsonResponse
     {
         $data = $this->produitService->editProduit($request->validated());
@@ -44,6 +48,7 @@ class ProduitController extends Controller
         ], 200);
     }
 
+// Supprime une ressource.
     public function deleteProduit(DeletProduitRequests $request): JsonResponse
     {
         $this->produitService->deleteProduit($request->validated());

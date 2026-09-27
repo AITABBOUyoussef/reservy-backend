@@ -7,6 +7,7 @@ use App\Models\ProduitOption;
 
 class ProduitOptionService
 {
+// Cr?e une nouvelle ressource.
     public function store(array $data)
     {
         $produit = Produit::with('etablissement')->findOrFail($data['produit_id']);
@@ -22,6 +23,7 @@ class ProduitOptionService
             'option' => $option,
         ]);
     }
+// Supprime une ressource.
     public function destroy(array $data)
     {
         $produit = Produit::with('etablissement')->findOrFail($data['produit_id']);

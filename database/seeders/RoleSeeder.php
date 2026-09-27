@@ -10,6 +10,7 @@ use Spatie\Permission\PermissionRegistrar;
 
 class RoleSeeder extends Seeder
 {
+// Ex?cute le traitement pr?vu.
     public function run(): void
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();

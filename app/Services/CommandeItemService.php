@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 class CommandeItemService
 {
+// Cr?e une nouvelle ressource.
     public function createCommandeItem(array $data): CommandeItem
     {
         $user = auth()->user();
@@ -53,6 +54,7 @@ class CommandeItemService
             'instructions_speciales' => $data['instructions_speciales'] ?? null,
         ])->load('produit');
     }
+// R?cup?re une ressource.
     public function getCommande()
     {
         $id = auth()->id();
@@ -81,6 +83,7 @@ class CommandeItemService
             )
             ->orderByDesc('commande_items.created_at')
             ->get();
+// Traite la logique de la route ou du rappel.
         $groupedCommandes = $CommandItems->groupBy(function ($item) {
             if ($item->reservation_id) {
                 return 'reservation_' . $item->reservation_id;
@@ -88,9 +91,11 @@ class CommandeItemService
                 return 'emporter_eta_' . $item->id_eta;
             }
         });
+// Traite la logique de la route ou du rappel.
         $sortedGroups = $groupedCommandes->sortByDesc(function ($items) {
             return $items->max('created_at');
         });
+// Traite la logique de la route ou du rappel.
         $result = $sortedGroups->map(function ($items, $key) {
             $first = $items->first();
             return [
@@ -101,6 +106,7 @@ class CommandeItemService
                 'total_commande' => $items->sum('prix_total'),
                 'etablissment' => $first->nom_eta,
                 'date_commande' => $first->created_at,
+// Traite la logique de la route ou du rappel.
                 'articles' => ($items->map(function ($item) {
                     return [
                         'id_ligne' => $item->id_ligne,

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
 
 
+// Ex?cute le traitement pr?vu.
 public function run(): void
 {
 $this->call([

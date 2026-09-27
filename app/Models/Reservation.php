@@ -19,21 +19,25 @@ class Reservation extends Model
     ];
 
 
+// Ex?cute l?op?ration ? client ?.
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
     }
 
+// Ex?cute l?op?ration ? etablissement ?.
     public function etablissement()
     {
         return $this->belongsTo(Etablissement::class);
     }
 
+// Ex?cute l?op?ration ? table ?.
     public function table()
     {
         return $this->belongsTo(TableResto::class, 'table_id');
     }
 
+// Ex?cute l?op?ration ? commandeItems ?.
     public function commandeItems()
     {
         return $this->hasMany(CommandeItem::class);

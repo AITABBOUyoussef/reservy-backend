@@ -7,10 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 class AcceptEtablissementRequest extends FormRequest
 {
 
+// V?rifie l?autorisation de l?action.
     public function authorize(): bool
     {
         return true;
     }
+// D?finit les r?gles de validation et d?acc?s.
     public function rules(): array
     {
         return [
@@ -21,6 +23,7 @@ class AcceptEtablissementRequest extends FormRequest
         ];
     }
 
+// Ex?cute l?op?ration ? messages ?.
     public function messages(): array
     {
         return [
