@@ -84,7 +84,7 @@ class ProduitService
     private function ensureCategoryBelongsToEstablishment(int $categoryId, int $etablissementId): void
     {
         $categoryBelongsToEstablishment = \App\Models\Categorie::query()
-            ->whereKey($categoryId)
+            ->whereFKey($categoryId)
             ->where('etablissement_id', $etablissementId)
             ->exists();
 

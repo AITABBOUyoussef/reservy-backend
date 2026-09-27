@@ -14,14 +14,14 @@ class ReservationService
     {
         $user = auth()->user();
 
-       $query = Reservation::with([
-    'client',
-    'table',
-    'commandeItems',
-    'etablissement.images' => function ($query) {
-        $query->where('est_principale', 1);
-    }
-]);
+        $query = Reservation::with([
+            'client',
+            'table',
+            'commandeItems',
+            'etablissement.images' => function ($query) {
+                $query->where('est_principale', 1);
+            }
+        ]);
 
         if ($user->hasRole('gerant')) {
             $query->whereHas('etablissement', function ($q) use ($user) {
@@ -136,13 +136,15 @@ class ReservationService
 
         $modifications = [];
 
-        foreach ([
-            'etablissement_id',
-            'table_id',
-            'date_reservation',
-            'heure_reservation',
-            'nombre_personnes',
-        ] as $champ) {
+        foreach (
+            [
+                'etablissement_id',
+                'table_id',
+                'date_reservation',
+                'heure_reservation',
+                'nombre_personnes',
+            ] as $champ
+        ) {
             if (array_key_exists($champ, $data)) {
                 $modifications[$champ] = $data[$champ];
             }
@@ -169,8 +171,10 @@ class ReservationService
                     'Vous ne pouvez pas gérer cet établissement.'
                 );
             }
-        } elseif (! $estAdmin
-            &&   $etablissementId !==   $reservation->etablissement_id) {
+        } elseif (
+            ! $estAdmin
+            &&   $etablissementId !==   $reservation->etablissement_id
+        ) {
             throw new AuthorizationException(
                 'Vous ne pouvez pas déplacer cette réservation.'
             );
@@ -188,7 +192,7 @@ class ReservationService
         if ($tableId) {
             $table = TableResto::findOrFail($tableId);
 
-            if (  $table->etablissement_id !==   $etablissementId) {
+            if ($table->etablissement_id !==   $etablissementId) {
                 throw ValidationException::withMessages([
                     'table_id' => 'Cette table n’appartient pas à cet établissement.',
                 ]);

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class EditTablEtablissementRequests extends FormRequest
 {
- public function authorize(): bool
+    public function authorize(): bool
     {
         return true;
     }
@@ -19,8 +19,9 @@ class EditTablEtablissementRequests extends FormRequest
             'numero' => [
                 'required',
                 'integer',
-                'max:255'],
-  'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
+                'max:255'
+            ],
+            'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
 
             'capacite' => ['required', 'integer'],
         ];

@@ -12,11 +12,11 @@ class ProduitOption extends Controller
     /**
      * Display a listing of the resource.
      */
-      public function __construct(protected ProduitOptionService $optionService) {}
+    public function __construct(protected ProduitOptionService $optionService) {}
 
     public function store(ProduitOptionRequests $request)
     {
- $data = $this->optionService->store($request->validated());
+        $data = $this->optionService->store($request->validated());
 
         return response()->json([
             'success' => true,
@@ -28,10 +28,7 @@ class ProduitOption extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function index(Request $request)
-    {
-
-    }
+    public function index(Request $request) {}
 
     /**
      * Display the specified resource.
@@ -55,7 +52,7 @@ class ProduitOption extends Controller
     public function destroy(DeletOptionEtablissementRequests $request)
     {
         $this->optionService->destroy($request->validated());
- return response()->json([
+        return response()->json([
             'success' => true,
             'message' => 'Tabl Delete'
         ], 200);

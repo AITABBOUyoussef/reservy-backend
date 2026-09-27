@@ -43,22 +43,23 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-public function role(): BelongsTo
-{
-    return $this->belongsTo(Role::class);
-}
- public function etablissments(){
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function etablissments()
+    {
         return $this->hasMany(Etablissement::class);
     }
-public function reviews(): HasMany
-{
-    return $this->hasMany(Review::class, 'client_id');
-}
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'client_id');
+    }
 
-public function reservations(): HasMany
-{
-    return $this->hasMany(Reservation::class, 'client_id');
-}
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class, 'client_id');
+    }
 
 
     /**

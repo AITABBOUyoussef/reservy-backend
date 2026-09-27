@@ -22,7 +22,6 @@ class ImageEtablissementService
             'folder' => 'reservy/etablissements'
         ]);
 
-        // Ila kant principale, rdd lokhrin 0
         if (!empty($data['est_principale'])) {
             EtablissementImage::where('etablissement_id', $etablissement->id)->update(['est_principale' => 0]);
         }

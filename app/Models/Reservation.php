@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     protected $fillable = [
-         'client_id',
-         'etablissement_id',
-         'table_id',
-         'date_reservation',
-         'heure_reservation',
-         'nombre_personnes',
-         'montant_total',
-         'statut_paiement',
-         'statut'
+        'client_id',
+        'etablissement_id',
+        'table_id',
+        'date_reservation',
+        'heure_reservation',
+        'nombre_personnes',
+        'montant_total',
+        'statut_paiement',
+        'statut'
     ];
 
 
@@ -38,5 +38,4 @@ class Reservation extends Model
     {
         return $this->hasMany(CommandeItem::class);
     }
-
 }

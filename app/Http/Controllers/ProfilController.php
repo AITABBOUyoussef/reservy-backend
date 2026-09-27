@@ -12,7 +12,7 @@ class ProfilController extends Controller
 
     public function __construct(
         protected ProfilService $profilService
-    ){}
+    ) {}
 
 
 
@@ -27,10 +27,10 @@ class ProfilController extends Controller
      */
     public function store(EditProfilRequest $request): JsonResponse
     {
-    // dd($request->all());
-    $data = $this->profilService->editProfil($request->user(), $request->validated());
+        // dd($request->all());
+        $data = $this->profilService->editProfil($request->user(), $request->validated());
         return response()->json([
-        'success' => true,
+            'success' => true,
             'message' => 'Profil mis à jour avec succès.',
             // 'token'   => $data['token'],
             'user'    => $data['user'],
@@ -58,7 +58,7 @@ class ProfilController extends Controller
      */
     public function destroy(Request $request)
     {
-    $this->profilService->destroy($request->user());
+        $this->profilService->destroy($request->user());
 
         return response()->json([
             'success' => true,

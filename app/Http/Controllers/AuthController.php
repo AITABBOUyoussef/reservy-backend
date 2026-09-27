@@ -26,36 +26,36 @@ class AuthController extends Controller
      */
     public function __construct(
         protected AuthService $authService
-    ){}
+    ) {}
 
     public function login(LoginRequest $request): JsonResponse
     {
         $data = $this->authService->login($request->validated());
         return response()->json([
-        'success' => true,
+            'success' => true,
             'message' => 'Connexion réussie.',
             'token'   => $data['token'],
             'user'    => $data['user'],
-            'role' =>$data['Role'],
+            'role' => $data['Role'],
         ], 200);
     }
-  public function inscription(InscriptionRequest $request): JsonResponse
-{
-    $data = $this->authService->inscription($request->validated());
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Inscription effectuée avec succès.',
-        'token'   => $data['token'],
-        'user'    => $data['user'],
-            'role' =>$data['Role'],
-
-    ], 201);
-}
-
-  public function logout(Request $request)
+    public function inscription(InscriptionRequest $request): JsonResponse
     {
-    $this->authService->logout($request->user());
+        $data = $this->authService->inscription($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Inscription effectuée avec succès.',
+            'token'   => $data['token'],
+            'user'    => $data['user'],
+            'role' => $data['Role'],
+
+        ], 201);
+    }
+
+    public function logout(Request $request)
+    {
+        $this->authService->logout($request->user());
 
         return response()->json([
             'success' => true,
@@ -90,45 +90,43 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function googleLogin(GoogleLoginRequest $request) : JsonResponse
+    public function googleLogin(GoogleLoginRequest $request): JsonResponse
     {
         $data = $this->authService->googleLogin($request->validated());
 
         return response()->json([
-            'success' =>true,
+            'success' => true,
             'message' => $data['message'],
             'token'   => $data['token'],
             'user'    => $data['user'],
-            'role' =>$data['Role'],
+            'role' => $data['Role'],
 
         ], 200);
-
     }
-    public function forgotPassword(ForgotPasswordRequest $request) : JsonResponse
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
-$data = $this->authService->forgotPassword($request->validated());
+        $data = $this->authService->forgotPassword($request->validated());
 
         return response()->json([
-            'success'=>$data['success'],
+            'success' => $data['success'],
             'message' => $data['message'],
         ], 200);
     }
 
-    public function resetPassword(ResetPasswordRequest $request) : JsonResponse
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
-   try {
-        $result = $this->authService->resetPassword($request->validated());
+        try {
+            $result = $this->authService->resetPassword($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => $result['message']
-        ], 200);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage()
-        ], 400);
-    }
+            return response()->json([
+                'success' => true,
+                'message' => $result['message']
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
     }
 }

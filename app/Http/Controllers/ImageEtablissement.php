@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ImageEtablissement extends Controller
 {
-     public function __construct(protected ImageEtablissementService $etablissemenImagetService ) {}
+    public function __construct(protected ImageEtablissementService $etablissemenImagetService) {}
 
 
     public function index()
@@ -21,12 +21,12 @@ class ImageEtablissement extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(ImageEtablissementRequests $request) : JsonResponse
+    public function store(ImageEtablissementRequests $request): JsonResponse
     {
 
-$data = $this->etablissemenImagetService->AddImage($request->validated());
-     return response()->json([
-        'success' => true,
+        $data = $this->etablissemenImagetService->AddImage($request->validated());
+        return response()->json([
+            'success' => true,
             'message' => 'Add Image de Etablissement réussie.',
             'image'    => $data['image'],
         ], 200);
@@ -54,16 +54,16 @@ $data = $this->etablissemenImagetService->AddImage($request->validated());
      */
     public function destroy(DeletImageEtablissementRequests $request): JsonResponse
     {
-      $this->etablissemenImagetService->deleteImage($request->validated());
-          return response()->json([
+        $this->etablissemenImagetService->deleteImage($request->validated());
+        return response()->json([
             'success' => true,
             'message' => 'Image Delete'
         ], 200);
     }
-       public function EditImage(DeletImageEtablissementRequests $request): JsonResponse
+    public function EditImage(DeletImageEtablissementRequests $request): JsonResponse
     {
-      $this->etablissemenImagetService->EditImage($request->validated());
-          return response()->json([
+        $this->etablissemenImagetService->EditImage($request->validated());
+        return response()->json([
             'success' => true,
             'message' => 'Image principale mise à jour avec succès'
         ], 200);

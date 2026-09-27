@@ -19,7 +19,7 @@ class ProfilService
         if (isset($data['avatar'])) {
 
             $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
-      if (!empty($user->public_id)) {
+            if (!empty($user->public_id)) {
                 $cloudinary->uploadApi()->destroy($user->public_id);
             }
 
@@ -31,7 +31,7 @@ class ProfilService
             $user->public_id = $uploaded['public_id'];
         }
 
-          $user->fill([
+        $user->fill([
             'name'  => $data['name'] ?? $user->name,
             'email' => $data['email'] ?? $user->email,
             'phone' => $data['phone'] ?? $user->phone,

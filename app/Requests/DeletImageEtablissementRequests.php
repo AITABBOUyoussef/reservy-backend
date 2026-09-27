@@ -6,16 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DeletImageEtablissementRequests extends FormRequest
 {
-    public function authorize():bool
+    public function authorize(): bool
     {
-    return true;
+        return true;
     }
- public function rules(): array
-{
-return [
-  'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
-  'IdImage'  => ['required', 'integer', 'exists:etablissement_images,id'],
-     'gerant_id'   => ['required', 'integer', 'exists:users,id'],
-];
-}
+    public function rules(): array
+    {
+        return [
+            'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
+            'IdImage'  => ['required', 'integer', 'exists:etablissement_images,id'],
+            'gerant_id'   => ['required', 'integer', 'exists:users,id'],
+        ];
+    }
 }

@@ -13,7 +13,8 @@ class Categorie extends Model
     {
         return $this->hasMany(Produit::class);
     }
-     public function etablissements () {
- return $this->belongsTo(Etablissement::class);
-     }
+    public function etablissements()
+    {
+        return $this->belongsTo(Etablissement::class);
+    }
 }

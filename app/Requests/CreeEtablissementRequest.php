@@ -7,46 +7,46 @@ use Illuminate\Foundation\Http\FormRequest;
 class CreeEtablissementRequest extends FormRequest
 {
 
-    public function authorize():bool
+    public function authorize(): bool
     {
-    return true;
+        return true;
     }
- public function rules(): array
-{
-    return [
-      
-        'nom'         => ['required', 'string', 'max:255'],
-        'description' => ['nullable', 'string'],
-        'adresse'     => ['required', 'string', 'max:255'],
-        'ville'       => ['required', 'string', 'max:100'],
-        'telephone'   => ['required', 'string', 'max:20'],
+    public function rules(): array
+    {
+        return [
 
-    ];
-}
+            'nom'         => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'adresse'     => ['required', 'string', 'max:255'],
+            'ville'       => ['required', 'string', 'max:100'],
+            'telephone'   => ['required', 'string', 'max:20'],
 
-public function messages(): array
-{
-    return [
-        'nom.required'         => 'Le nom est obligatoire.',
-        'nom.string'           => 'Le nom doit être une chaîne de caractères.',
-        'nom.max'              => 'Le nom ne peut pas dépasser :max caractères.',
+        ];
+    }
 
-        'description.string'   => 'La description doit être une chaîne de caractères.',
+    public function messages(): array
+    {
+        return [
+            'nom.required'         => 'Le nom est obligatoire.',
+            'nom.string'           => 'Le nom doit être une chaîne de caractères.',
+            'nom.max'              => 'Le nom ne peut pas dépasser :max caractères.',
 
-        'adresse.required'     => 'L\'adresse est obligatoire.',
-        'adresse.string'       => 'L\'adresse doit être une chaîne de caractères.',
-        'adresse.max'          => 'L\'adresse ne peut pas dépasser :max caractères.',
+            'description.string'   => 'La description doit être une chaîne de caractères.',
 
-        'ville.required'       => 'La ville est obligatoire.',
-        'ville.string'         => 'La ville doit être une chaîne de caractères.',
-        'ville.max'            => 'La ville ne peut pas dépasser :max caractères.',
+            'adresse.required'     => 'L\'adresse est obligatoire.',
+            'adresse.string'       => 'L\'adresse doit être une chaîne de caractères.',
+            'adresse.max'          => 'L\'adresse ne peut pas dépasser :max caractères.',
 
-        'telephone.required'   => 'Le numéro de téléphone est obligatoire.',
-        'telephone.string'     => 'Le numéro de téléphone doit être valide.',
-        'telephone.max'        => 'Le numéro de téléphone ne peut pas dépasser :max caractères.',
+            'ville.required'       => 'La ville est obligatoire.',
+            'ville.string'         => 'La ville doit être une chaîne de caractères.',
+            'ville.max'            => 'La ville ne peut pas dépasser :max caractères.',
+
+            'telephone.required'   => 'Le numéro de téléphone est obligatoire.',
+            'telephone.string'     => 'Le numéro de téléphone doit être valide.',
+            'telephone.max'        => 'Le numéro de téléphone ne peut pas dépasser :max caractères.',
 
 
 
-    ];
-}
+        ];
+    }
 }

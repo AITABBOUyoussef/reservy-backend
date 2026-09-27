@@ -23,32 +23,32 @@ class Etablissement extends Model
     {
         return $this->hasMany(EtablissementImage::class);
     }
-public function users(): BelongsTo
-{
-    return $this->belongsTo(User::class);
-}
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function tables(): HasMany
     {
         return $this->hasMany(TableResto::class);
     }
 
-public function produits(): HasMany
-{
-    return $this->hasMany(Produit::class);
-}
-public function categories(): HasMany
-{
-    return $this->hasMany(Categorie::class);
-}
+    public function produits(): HasMany
+    {
+        return $this->hasMany(Produit::class);
+    }
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Categorie::class);
+    }
 
-public function reviews(): HasMany
-{
-    return $this->hasMany(Review::class);
-}
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
 
-public function reservations(): HasMany
-{
-    return $this->hasMany(Reservation::class);
-}
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

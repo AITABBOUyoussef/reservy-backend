@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommandeItem extends Model
 {
-       protected $fillable = [
+    protected $fillable = [
         'client_id',
         'reservation_id',
         'produit_id',

@@ -9,20 +9,20 @@ class GoogleLoginRequest extends FormRequest
     /**
      * Create a new class instance.
      */
-   public function authorize(): bool
-  {
-    return true;
-  }
-  public function rules(): array
-  {
-    return [
-        'token'=>['required']
-    ];
-  }
+    public function authorize(): bool
+    {
+        return true;
+    }
+    public function rules(): array
+    {
+        return [
+            'token' => ['required']
+        ];
+    }
     public function messages()
-  {
-    return [
+    {
+        return [
             'token.required'    => 'Token est obligatoire.',
         ];
-  }
+    }
 }

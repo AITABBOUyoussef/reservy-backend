@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 
 class TablEtablissement extends Controller
 {
-     public function __construct(protected ServicesTablEtablissement $etablissemenTablService ) {}
+    public function __construct(protected ServicesTablEtablissement $etablissemenTablService) {}
 
-     public function AddTabl(TablEtablissementRequests $request) : JsonResponse
+    public function AddTabl(TablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->AddTabl($request->validated());
 
@@ -25,7 +25,7 @@ class TablEtablissement extends Controller
             'tabl'    => $data['tabl'],
         ], 200);
     }
-     public function EditTabl(EditTablEtablissementRequests $request) : JsonResponse
+    public function EditTabl(EditTablEtablissementRequests $request): JsonResponse
     {
         $data = $this->etablissemenTablService->EditTabl($request->validated());
 
@@ -37,7 +37,7 @@ class TablEtablissement extends Controller
     }
 
 
-      public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
+    public function daleteTabl(DeletTablEtablissementRequests $request): JsonResponse
     {
         $this->etablissemenTablService->daleteTabl($request->validated());
 
@@ -46,6 +46,4 @@ class TablEtablissement extends Controller
             'message' => 'Tabl Delete'
         ], 200);
     }
-
-
 }

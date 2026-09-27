@@ -24,9 +24,8 @@ class TableResto extends Model
     {
         return $this->belongsTo(Etablissement::class);
     }
-public function reservations(): HasMany
-{
-    return $this->hasMany(Reservation::class, 'table_id');
-}
-
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class, 'table_id');
+    }
 }

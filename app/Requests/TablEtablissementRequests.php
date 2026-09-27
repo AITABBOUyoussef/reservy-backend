@@ -22,7 +22,7 @@ class TablEtablissementRequests extends FormRequest
                 'required',
                 'integer',
                 'max:255',
-               Rule::unique('table_restos')->where(function ($query) {
+                Rule::unique('table_restos')->where(function ($query) {
                     return $query->where('etablissement_id', $this->etablissement_id);
                 })
             ],
@@ -34,8 +34,8 @@ class TablEtablissementRequests extends FormRequest
     public function messages(): array
     {
         return [
-           'numero.unique' => 'Ce numéro de table existe déjà dans cet établissement.',
-           'numero.required' => 'Le numéro de table est obligatoire.',
+            'numero.unique' => 'Ce numéro de table existe déjà dans cet établissement.',
+            'numero.required' => 'Le numéro de table est obligatoire.',
             'capacite.required' => 'La capacité de la table est obligatoire.',
         ];
     }

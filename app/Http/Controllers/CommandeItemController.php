@@ -24,8 +24,8 @@ class CommandeItemController extends Controller
     }
     public function get()
     {
-      $data =  $this->commandeItemService->getCommande();
-              return response()->json([
+        $data =  $this->commandeItemService->getCommande();
+        return response()->json([
             'MesCommande'    => $data['commande_items'],
         ], 200);
     }

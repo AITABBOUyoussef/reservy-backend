@@ -6,15 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DeletTablEtablissementRequests extends FormRequest
 {
-    public function authorize():bool
+    public function authorize(): bool
     {
-    return true;
+        return true;
     }
- public function rules(): array
-{
-return [
-  'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
-  'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
-];
-}
+    public function rules(): array
+    {
+        return [
+            'IdEtablissement'  => ['required', 'integer', 'exists:etablissements,id'],
+            'IdTabl'  => ['required', 'integer', 'exists:table_restos,id'],
+        ];
+    }
 }

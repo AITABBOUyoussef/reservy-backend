@@ -14,7 +14,7 @@ class CommandeItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+
             'reservation_id' => ['nullable', 'exists:reservations,id'],
             'produit_id' => ['required', 'integer', 'exists:produits,id'],
             'quantite' => ['required', 'integer', 'min:1'],
